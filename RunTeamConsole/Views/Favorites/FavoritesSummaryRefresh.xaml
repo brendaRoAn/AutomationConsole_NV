@@ -1,0 +1,249 @@
+﻿<UserControl x:Class="RunTeamConsole.Views.Favorites.FavoritesSummaryRefresh"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunTeamConsole.Views.Favorites"
+             xmlns:components="clr-namespace:RunTeamConsole.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
+    </UserControl.Resources>
+    <Grid Background="White" DataContext="{Binding FavoriteSelected}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="34"/>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="28*"/>
+            <RowDefinition Height="85*"/>
+            <RowDefinition Height="28*"/>
+            <RowDefinition Height="82*"/>
+            <RowDefinition Height="28*"/>
+            <RowDefinition Height="82*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="82*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border BorderBrush="#FFECECEC" BorderThickness="0,0,0,1" Grid.ColumnSpan="2" Background="WhiteSmoke" d:IsHidden="True" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label HorizontalAlignment="Stretch" Background="{x:Null}" Padding="10,8,10,8" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Center" FontFamily="72" Content="Summary" Grid.ColumnSpan="2"/>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Margin="-10,0,0,0" Height="24">
+            <Label HorizontalAlignment="Stretch" Background="{x:Null}" Padding="10,4,5,4" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Center" FontFamily="72" Content="Process Type:" Grid.ColumnSpan="2"/>
+            <Label HorizontalAlignment="Stretch" Background="{x:Null}" Padding="0,4,10,4" FontSize="14" HorizontalContentAlignment="Center" FontFamily="72" Content="{Binding Title}" Grid.ColumnSpan="2"/>
+        </StackPanel>
+
+        <Border BorderBrush="#FFD4D4D4" BorderThickness="0,0,0,1" Background="#FFEAEAEA" Grid.Row="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label FontSize="14" HorizontalContentAlignment="Center" Padding="5,0,5,0" VerticalContentAlignment="Center">Target Servers</Label>
+                <Label FontSize="11" HorizontalContentAlignment="Center" FontStyle="Italic" Background="{x:Null}" VerticalContentAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+        <ListView Background="AliceBlue" ItemsSource="{Binding Processes[0].ServerList}" Grid.Row="3" Grid.ColumnSpan="1">
+            <ListView.View>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="System Information">
+                    <GridViewColumn Header="Customer" DisplayMemberBinding="{Binding Customer}"/>
+                    <GridViewColumn Header="SID" DisplayMemberBinding="{Binding SID}"/>
+                    <GridViewColumn Header="Host" DisplayMemberBinding="{Binding Hostname}" Width="120"/>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding ProductType}"/>
+                    <GridViewColumn Header="D/Q/P" DisplayMemberBinding="{Binding Environment}"/>
+                    <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version}"/>
+                    <GridViewColumn Header="Stack" DisplayMemberBinding="{Binding Stack}"/>
+                    <GridViewColumn Header="CI/DI" DisplayMemberBinding="{Binding CIDI}"/>
+                    <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                    <GridViewColumn Header="DB" DisplayMemberBinding="{Binding DBType}"/>
+                    <GridViewColumn Header="Region" DisplayMemberBinding="{Binding Region}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Border BorderBrush="#FFD4D4D4" BorderThickness="0,0,0,1" Background="#FFEAEAEA" Grid.Row="4">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontSize="14" HorizontalContentAlignment="Center" Padding="5,0,5,0" VerticalContentAlignment="Center">Source DB Server</Label>
+                <Label FontSize="11" HorizontalContentAlignment="Center" FontStyle="Italic" Background="{x:Null}" VerticalContentAlignment="Center"/>
+            </StackPanel>
+        </Border>
+        <ListView Background="AliceBlue"  ItemsSource="{Binding Processes[0].SourceServers}" Grid.Row="5">
+            <ListView.View>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="System Information">
+                    <GridViewColumn Header="Customer" DisplayMemberBinding="{Binding Customer}"/>
+                    <GridViewColumn Header="SID" DisplayMemberBinding="{Binding SID}"/>
+                    <GridViewColumn Header="Host" DisplayMemberBinding="{Binding Hostname}" Width="120"/>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding ProductType}"/>
+                    <GridViewColumn Header="D/Q/P" DisplayMemberBinding="{Binding Environment}"/>
+                    <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version}"/>
+                    <GridViewColumn Header="Stack" DisplayMemberBinding="{Binding Stack}"/>
+                    <GridViewColumn Header="CI/DI" DisplayMemberBinding="{Binding CIDI}"/>
+                    <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                    <GridViewColumn Header="DB" DisplayMemberBinding="{Binding DBType}"/>
+                    <GridViewColumn Header="Region" DisplayMemberBinding="{Binding Region}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Border BorderBrush="#FFD4D4D4" BorderThickness="0,0,0,1" Background="#FFEAEAEA" Grid.Row="6" Visibility="{Binding Processes[0].ShowBDLSList, Converter={StaticResource VisibleIfTrueConverter}}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontSize="14" HorizontalContentAlignment="Center" Padding="5,0,5,0" VerticalContentAlignment="Center">SAP Logical System Conversion</Label>
+            </StackPanel>
+        </Border>
+        <Grid Grid.Row="7" Visibility="{Binding Processes[0].ShowBDLSList, Converter={StaticResource VisibleIfTrueConverter}}">
+            <ListView Background="AliceBlue" ItemsSource="{Binding Processes[0].BDLSList}" FontSize="14">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="System Information">
+                        <GridViewColumn Header="Source">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding SourceSID}"/>
+                                        <TextBlock Text="CLNT"/>
+                                        <TextBlock Text="{Binding SourceClient}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="to">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Width="10" Height="10" Source="/img/icons/stepsarrow.png"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Target">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding TargetSID}"/>
+                                        <TextBlock Text="CLNT"/>
+                                        <TextBlock Text="{Binding TargetClient}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
+        <Border BorderBrush="#FFD4D4D4" BorderThickness="0,0,0,0" Grid.Row="8">
+            <Label FontSize="14" HorizontalContentAlignment="Center" Background="#FFEAEAEA">Email Destinations</Label>
+        </Border>
+        <ListBox Name="EmailList" Grid.Row="9" ItemsSource="{Binding Processes[0].EmailDest}" MinHeight="20" BorderBrush="Black" Background="{x:Null}" BorderThickness="0,0,0,0" Margin="0,0,-1,0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Border BorderBrush="#FFD4D4D4" BorderThickness="0,0,0,1" Background="#FFEAEAEA" Grid.Column="2" Grid.Row="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontSize="14" HorizontalContentAlignment="Center" Padding="5,0,5,0" VerticalContentAlignment="Center">Additional Settings</Label>
+            </StackPanel>
+        </Border>
+
+        <Grid VerticalAlignment="Top" Margin="10,0,10,0" Grid.Column="2" Grid.Row="3" Grid.RowSpan="7" DataContext="{Binding Processes[0]}">
+            
+            <StackPanel Grid.Column="2" Grid.Row="3" Margin="5,20,2,2">
+
+                <Label VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Bold" Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}">Target DB System Additional Settings</Label>
+
+                <TextBlock Margin="5,0,2,2" FontWeight="Bold" Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}">Oracle</TextBlock>
+                <TextBlock Margin="5,0,2,2" Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}">DB User
+                            <Span Foreground="Red" FontWeight="Bold">*</Span>
+                </TextBlock>
+                <TextBlock Margin="5,0,2,2" Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}">Password
+                            <Span Foreground="Red" FontWeight="Bold">*</Span>
+                </TextBlock>
+
+                <TextBlock Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}" Margin="5,4,2,2">Source Backup Date and Time
+                            <Span Foreground="Red" FontWeight="Bold">*</Span>
+                </TextBlock>
+
+                <Border BorderBrush="#FFD4D4D4" BorderThickness="1,1,1,1" Grid.Row="8" Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <TextBlock HorizontalAlignment="Center" Text="{Binding RestoreDateTime}"/>
+                </Border>
+
+                <TextBlock Margin="5,4,2,6" Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}">CV Streams</TextBlock>
+
+                <Label VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Bold" Content="SAP System Credentials" Visibility="{Binding ShowBDLSList, Converter={StaticResource VisibleIfTrueConverter}}"/>
+
+                <ItemsControl ItemsSource="{Binding Credentials.ClientsList}">
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Visibility" Value="{Binding IsSelected, Converter={StaticResource VisibleIfTrueConverter}}"/>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Margin="5,6,2,2">Set</TextBlock>
+                                <TextBlock Margin="5,4,2,2">Client Number</TextBlock>
+                                <TextBlock Margin="5,4,2,2">User</TextBlock>
+                                <TextBlock Margin="5,4,2,2">Password</TextBlock>
+                                <TextBlock Margin="5,4,2,2">Description</TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" Margin="60,0,0,0">
+                <TextBox Margin="0,61,0,10" MinWidth="150" Text="{Binding Credentials.DBUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}"/>
+
+                <Grid Margin="0,-10" Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <TextBox Visibility="Collapsed" IsEnabled="True" MinWidth="100" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Text="{Binding Credentials.DBPass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <components:BindablePasswordBox IsEnabled="True" MinWidth="100" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Password="{Binding Credentials.DBPass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button PreviewMouseDown="Button_MouseDown" PreviewMouseUp="Button_MouseUp" HorizontalAlignment="Right" Background="White" BorderBrush="{x:Null}">
+                        <Image Source="/img/icons/theye.png" HorizontalAlignment="Stretch" Width="15"/>
+                    </Button>
+                </Grid>
+
+                <Border BorderBrush="#FFD4D4D4" BorderThickness="1,1,1,1" Margin="0,54,2,2" MaxHeight="18" Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <TextBlock MaxHeight="18" Margin="0,0,2,2" Text="{Binding CVStreams}"/>
+                </Border>
+
+                <ItemsControl ItemsSource="{Binding Credentials.ClientsList}" Margin="0,30,2,2">
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Visibility" Value="{Binding IsSelected, Converter={StaticResource VisibleIfTrueConverter}}"/>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Border BorderBrush="#FFD4D4D4" BorderThickness="1,1,1,1" Margin="0,7,2,2" MaxHeight="18">
+                                    <TextBlock MaxHeight="18" Margin="0,0,2,2" Text="{Binding SetNum, StringFormat=0{0}}"></TextBlock>
+                                </Border>
+                                <Border BorderBrush="#FFD4D4D4" BorderThickness="1,1,1,1" Margin="0,2,2,2" MaxHeight="18">
+                                    <TextBlock MaxHeight="18" Margin="0,0,2,2"  Text="{Binding ClientNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsSelected, Mode=TwoWay}"></TextBlock>
+                                </Border>
+                                <Border BorderBrush="#FFD4D4D4" BorderThickness="1,1,1,1" Margin="0,2,2,2" MaxHeight="18">
+                                    <TextBlock MaxHeight="18" Margin="0,0,2,2" Text="{Binding User, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsSelected, Mode=TwoWay}"/>
+                                </Border>
+                                <Grid Margin="0,2,0,0">
+                                    <TextBox Visibility="Collapsed" IsEnabled="False" MinWidth="110" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <components:BindablePasswordBox IsEnabled="False" MinWidth="110" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Button PreviewMouseDown="Button_MouseDown" PreviewMouseUp="Button_MouseUp" HorizontalAlignment="Right" Background="White" BorderBrush="{x:Null}">
+                                        <Image Source="/img/icons/theye.png" HorizontalAlignment="Stretch" Width="15"/>
+                                    </Button>
+                                </Grid>
+                                <Border BorderBrush="#FFD4D4D4" BorderThickness="1,1,1,1" Margin="0,3,2,2" MaxHeight="18">
+                                    <TextBlock MaxHeight="18" Margin="0,0,2,2" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsSelected, Mode=TwoWay}"/>
+                                </Border>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

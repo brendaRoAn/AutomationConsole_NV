@@ -1,0 +1,165 @@
+﻿<UserControl x:Class="RunTeamConsole.Views.SelectProcessView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:RunTeamConsole"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="820">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="53*"/>
+            <ColumnDefinition Width="111*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="28*"/>
+            <RowDefinition Height="263*"/>
+            <RowDefinition Height="92*"/>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="#FFC7C7C7" BorderThickness="0,0,0,1" Background="#FFF1F1F1" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontFamily="72" FontWeight="Bold" Content="Select and configure your process"/>
+            </StackPanel>
+        </Border>
+        <TreeView Name="ProcessesMenu" ItemsSource="{Binding Categories}" BorderBrush="#FFB2B2B2" Grid.Row="2">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type MenuItem}" ItemsSource="{Binding Items}">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <Image Source="{Binding Icon}" />
+                        <TextBlock Name="letext" Text="{Binding Title}" Foreground="{Binding Foreground}"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                    <!--<Setter Property="IsExpanded" Value="{Binding IsExpanded}" /> -->
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
+        <Border Grid.Row="3" BorderBrush="#FF8D8D8D" BorderThickness="1,1,1,1" Background="White" RenderTransformOrigin="-0.055,1.637">
+            <StackPanel>
+                <TextBlock Name="ProcessDescription" Text="{Binding SelectedDescription, FallbackValue=None}" TextWrapping="Wrap" Padding="10,10,10,11" FontStyle="Italic"/>
+                <TextBlock Name="TrainingHiperLink" Visibility="{Binding ShowsTrainingHiperLink, Converter={StaticResource BooleanToVisibilityConverter}}" TextWrapping="Wrap" Padding="10,0,10,11" FontStyle="Italic" >
+                    <Run Text="Please go to Alice to get the proper certification:"></Run>
+                    <Hyperlink Click="Hyperlink_OnClick">
+                        ALICE Training
+                    </Hyperlink>
+                    <Run Text="and/or ask for the authorization"></Run>
+                </TextBlock>
+            </StackPanel>
+        </Border>
+        <ListView x:Name="stepList" BorderBrush="#FFD4D4D4" ScrollViewer.CanContentScroll="True" FontSize="10" DataContext="{Binding SelectedProcess}" ItemsSource="{Binding StepList}" SelectedItem="{Binding SelectedStep}" SelectionMode="Multiple" Grid.Column="1" Grid.RowSpan="2" Grid.Row="2">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView AllowsColumnReorder="true">
+                    <GridViewColumn Width="30">
+                        <GridViewColumn.Header>
+                            <CheckBox IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}}, Path=DataContext.SelectAllCheckIsChecked}" 
+                                      Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}}, Path=DataContext.SelectAllStepsCommand}" 
+                                      CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Mode=TwoWay, Path=IsSelected}" IsEnabled="{Binding IsEnabled}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Step Name">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Name}"  Margin="2,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Step Description">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Description}"  Margin="2,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="60">
+                        <GridViewColumn.Header>
+                            <DockPanel>
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}}, Path=DataContext.AllEmailIsChecked}"
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}}, Path=DataContext.CheckAllEmailCommand}" 
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                                <TextBlock Text="Email"></TextBlock>
+                            </DockPanel>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding EmailDefault}" IsEnabled="{Binding EmailEnabled}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="60">
+                        <GridViewColumn.Header>
+                            <DockPanel>
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}}, Path=DataContext.AllAutoIsChecked}"
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}}, Path=DataContext.CheckAllAutoCommand}" 
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                                <TextBlock Text="Auto"></TextBlock>
+                            </DockPanel>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding AutoDefault}" IsEnabled="{Binding AutoEnabled}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumnHeader Content="Reply" Visibility="{Binding AnyStepReplyAuto, Converter={StaticResource BooleanToVisibilityConverter}}" local:GridViewBehaviours.CollapseableColumn="True"/>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding RepeatAuto}" IsEnabled="{Binding RepeatAutoConf}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100">
+                        <GridViewColumnHeader Content="Period Day" Visibility="{Binding AnyStepReplyAuto, Converter={StaticResource BooleanToVisibilityConverter}}" local:GridViewBehaviours.CollapseableColumn="True"/>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding RepeatDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding RepeatAutoConf}" Width="85"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100">
+                        <GridViewColumnHeader Content="Period Time" Visibility="{Binding AnyStepReplyAuto, Converter={StaticResource BooleanToVisibilityConverter}}" local:GridViewBehaviours.CollapseableColumn="True"/>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding RepeatTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding RepeatAutoConf}" Width="85"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Content="1. Select your process" VerticalAlignment="Center" Background="WhiteSmoke" Grid.Row="1" Height="26"/>
+        <Grid Grid.Column="1" VerticalAlignment="Center" Background="WhiteSmoke" Grid.Row="1" Height="26">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Label Content="2. How do you want it to execute?" Margin="0,0,-4,0"/>
+                <!--<Label Content="Configure the steps of your process" FontStyle="Italic" HorizontalAlignment="Left" Visibility="{Binding SelectedProcess.SingleFlowMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>-->
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Visibility="{Binding IsMultipleFlowMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Label Content="Database Restore:"/>
+                <ComboBox Width="90" SelectedItem="{Binding SelectedFlowMode}" ItemsSource="{Binding FlowModes}" >
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
+ 

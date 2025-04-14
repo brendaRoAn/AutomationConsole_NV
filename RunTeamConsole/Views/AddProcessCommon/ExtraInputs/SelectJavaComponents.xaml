@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="RunTeamConsole.Views.AddProcessCommon.ExtraInputs.SelectJavaComponents"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunTeamConsole.Views.AddProcessCommon.ExtraInputs"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="White" Margin="10,0,28,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="6*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="19*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="182*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.ColumnSpan="3" BorderBrush="#FFC7C7C7" BorderThickness="0,0,0,1">
+            <Label Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="72" FontWeight="Bold" Content="Select Java Components"/>
+        </Border>
+        <Label Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontFamily="72" FontSize="14">Component Catalog:</Label>
+        <ListView Background="AliceBlue" ItemsSource="{Binding JavaComponentsCatalog}" SelectionMode="Multiple" FontSize="14" Grid.Row="2" Margin="5,0,5,0">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="System Information">
+                    <GridViewColumn Width="30">
+                        <GridViewColumn.Header>
+                            <CheckBox IsChecked="{Binding SelectAllJavaComponentsCheckboxIsChecked}" 
+                                      Command="{Binding SelectAllJavaComponentsCommand}" 
+                                      CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Mode=TwoWay, Path=IsSelected}" IsEnabled="{Binding IsEnabled}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Component" DisplayMemberBinding="{Binding Name}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView Background="AliceBlue" ItemsSource="{Binding SelectedJavaComponentsList}" SelectionMode="Multiple" FontSize="14" Grid.Row="2" Grid.Column="2" Margin="5,0,5,0">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelectedOnSelectedList}"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="System Information">
+                    <GridViewColumn Width="30">
+                        <GridViewColumn.Header>
+                            <CheckBox IsChecked="{Binding SelectAllJavaComponentsOnSelectedListCheckboxIsChecked}"
+                                      Command="{Binding SelectAllJavaComponentsOnSelectedListCommand}" 
+                                      CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Mode=TwoWay, Path=IsSelectedOnSelectedList}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Component" DisplayMemberBinding="{Binding Name}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Center">
+            <Button BorderBrush="{x:Null}" Background="{x:Null}" Width="Auto" Command="{Binding MoveToSelectedJavaComponents}">
+                <Image Source="/img/icons/arrow-r.png" ToolTip="Select Server" Margin="10,0,10,0"/>
+            </Button>
+            <Button BorderBrush="{x:Null}" Background="{x:Null}" Width="Auto" Command="{Binding RemoveFromSelectedJavaComponents}" Margin="5,15,5,0">
+                <Image Source="/img/icons/arrow-l.png" ToolTip="Select Server" Margin="5,0,5,0"/>
+            </Button>
+        </StackPanel>
+        <Label Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontFamily="72" FontSize="14">Selected Components:</Label>
+    </Grid>
+</UserControl>

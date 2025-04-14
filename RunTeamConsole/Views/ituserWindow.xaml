@@ -1,0 +1,69 @@
+﻿<Window x:Class="RunTeamConsole.Views.ituserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RunTeamConsole.Views" xmlns:components="clr-namespace:RunTeamConsole.Components"
+        mc:Ignorable="d"
+        Title="Confirm your execution" Height="210" Width="400" ResizeMode="NoResize">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
+    </Window.Resources>
+    <Grid Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="14*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Fill your ITUSER or VDC-USER and password to continue:"/>
+        <Border Grid.Row="1" BorderBrush="#FFCDCDCD" BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal">
+                <Label FontWeight="Bold">User :</Label>
+                <TextBox Visibility="Visible" Margin="10,0,10,6" Width="100" Background="White" MaxHeight="600" Text="{Binding ValItuser, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2" VerticalAlignment="Top" />
+
+                <Label FontWeight="Bold">Password:</Label>
+                <Grid Margin="0,0,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="29*"/>
+                    </Grid.RowDefinitions>
+                    <TextBox Visibility="Collapsed" Margin="10,0,10,0" Width="150" MaxHeight="20"  Text="{Binding OSPass, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2" />
+                    <components:BindablePasswordBox Margin="10,0,10,0" Width="150" MaxHeight="20"  Password="{Binding OSPass}" Grid.RowSpan="2"/>
+                    <Button PreviewMouseDown="Button_MouseDown" PreviewMouseUp="Button_MouseUp" HorizontalAlignment="Right" Background="White" BorderBrush="{x:Null}" Margin="0,0,11,0" MaxHeight="20" Grid.RowSpan="2">
+                        <Image Source="/img/icons/theye.png" HorizontalAlignment="Stretch" Width="15"/>
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Border>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,9">
+            <Button IsCancel="True" Content="Cancel" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="15,5,15,5" Background="Gainsboro" Margin="0,0,20,0"/>
+            <Button IsDefault="True" Content="Start Process" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="15,5,15,5" Background="#FFA4DCB1" Margin="0,0,6,0"
+                Command="{Binding StartProcessCommand}" CommandParameter="{Binding Processes}"/>
+        </StackPanel>
+        <Border Grid.Row="3" CornerRadius="10,10,10,10" Background="#FFFFFF40" Margin="5,5,5,5"
+                 Visibility="{Binding PRDServerSelected, Converter={StaticResource VisibleIfTrueConverter}}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/img/icons/warning.png"  MaxHeight="15" Margin="7,0,0,0"/>
+                <Label Foreground="#FFBF0C0C" FontFamily="72 Condensed" Background="{x:Null}">Please be aware that one or more servers on your selection are PRD.</Label>
+            </StackPanel>
+        </Border>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="33*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/img/icons/info-lines.png" MaxWidth="15" Margin="11,0,0,0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="15" />
+            <TextBlock FontSize="10" TextWrapping="Wrap" Margin="7,4,0,0" FontFamily="72" FontStyle="Italic" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0.098"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>Once started, your process will execute and you will have to contact Innovation Team in case of any issue.</TextBlock>
+        </Grid>
+    </Grid>
+</Window>

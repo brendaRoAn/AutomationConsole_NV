@@ -1,0 +1,211 @@
+﻿<UserControl x:Class="RunTeamConsole.Views.StartSapHadr.SummaryHadr"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunTeamConsole"
+             xmlns:components="clr-namespace:RunTeamConsole.Components"
+             xmlns:local1="clr-namespace:RunTeamConsole.Models"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="34"/>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="28*"/>
+            <RowDefinition Height="85*"/>
+            <RowDefinition Height="28*"/>
+            <RowDefinition Height="82*"/>
+            <RowDefinition Height="28*"/>
+            <RowDefinition Height="82*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="82*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border BorderBrush="#FFECECEC" BorderThickness="0,0,0,1" Grid.ColumnSpan="2" Background="WhiteSmoke" d:IsHidden="True" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label HorizontalAlignment="Stretch" Background="{x:Null}" Padding="10,8,10,8" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Center" FontFamily="72" Content="Summary" Grid.ColumnSpan="2"/>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Margin="-10,0,0,0" Height="24">
+            <Label HorizontalAlignment="Stretch" Background="{x:Null}" Padding="10,4,5,4" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Center" FontFamily="72" Content="Process Type:" Grid.ColumnSpan="2"/>
+            <Label HorizontalAlignment="Stretch" Background="{x:Null}" Padding="0,4,10,4" FontSize="14" HorizontalContentAlignment="Center" FontFamily="72" Content="{Binding SelectedProcess.Title}" Grid.ColumnSpan="2"/>
+        </StackPanel>
+
+        <Border BorderBrush="#FFD4D4D4" BorderThickness="0,0,0,1" Background="#FFEAEAEA" Margin="0,0,5,0" Grid.Row="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label FontSize="14" HorizontalContentAlignment="Center" Padding="5,0,5,0" VerticalContentAlignment="Center">Primary DB Server</Label>
+            </StackPanel>
+        </Border>
+
+        <ListView Background="AliceBlue" ItemsSource="{Binding PrimaryDBServerList}" SelectionMode="Multiple" Margin="0,0,5,0" Grid.Row="3" Grid.ColumnSpan="1">
+            <ListView.View>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="System Information">
+                    <GridViewColumn Header="Customer" DisplayMemberBinding="{Binding Customer}"/>
+                    <GridViewColumn Header="SID" DisplayMemberBinding="{Binding SID}"/>
+                    <GridViewColumn Header="Host" DisplayMemberBinding="{Binding Hostname}" Width="120"/>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding ProductType}"/>
+                    <GridViewColumn Header="D/Q/P" DisplayMemberBinding="{Binding Environment}"/>
+                    <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version}"/>
+                    <GridViewColumn Header="Stack" DisplayMemberBinding="{Binding Stack}"/>
+                    <GridViewColumn Header="CI/DI" DisplayMemberBinding="{Binding CIDI}"/>
+                    <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                    <GridViewColumn Header="DB" DisplayMemberBinding="{Binding DBType}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Border BorderBrush="#FFD4D4D4" BorderThickness="0,0,0,1" Background="#FFEAEAEA" Margin="0,0,5,0" Grid.Row="4">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontSize="14" HorizontalContentAlignment="Center" Padding="5,0,5,0" VerticalContentAlignment="Center">Standby DB Server</Label>
+            </StackPanel>
+        </Border>
+
+        <ListView Background="AliceBlue" ItemsSource="{Binding StandbyDBServerList}" SelectionMode="Multiple" Margin="0,0,5,0" Grid.Row="5" Grid.ColumnSpan="1">
+            <ListView.View>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="System Information">
+                    <GridViewColumn Header="Customer" DisplayMemberBinding="{Binding Customer}"/>
+                    <GridViewColumn Header="SID" DisplayMemberBinding="{Binding SID}"/>
+                    <GridViewColumn Header="Host" DisplayMemberBinding="{Binding Hostname}" Width="120"/>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding ProductType}"/>
+                    <GridViewColumn Header="D/Q/P" DisplayMemberBinding="{Binding Environment}"/>
+                    <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version}"/>
+                    <GridViewColumn Header="Stack" DisplayMemberBinding="{Binding Stack}"/>
+                    <GridViewColumn Header="CI/DI" DisplayMemberBinding="{Binding CIDI}"/>
+                    <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                    <GridViewColumn Header="DB" DisplayMemberBinding="{Binding DBType}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Border BorderBrush="#FFD4D4D4" BorderThickness="0,0,0,1" Background="#FFEAEAEA" Margin="0,0,5,0" Grid.Row="6">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontSize="14" HorizontalContentAlignment="Center" Padding="5,0,5,0" VerticalContentAlignment="Center">SAP ACSC/SCS Server</Label>
+            </StackPanel>
+        </Border>
+
+        <ListView Background="AliceBlue" ItemsSource="{Binding SapAcscScsServerList}" SelectionMode="Multiple" Margin="0,0,5,0" Grid.Row="7" Grid.ColumnSpan="1">
+            <ListView.View>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="System Information">
+                    <GridViewColumn Header="Customer" DisplayMemberBinding="{Binding Customer}"/>
+                    <GridViewColumn Header="SID" DisplayMemberBinding="{Binding SID}"/>
+                    <GridViewColumn Header="Host" DisplayMemberBinding="{Binding Hostname}" Width="120"/>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding ProductType}"/>
+                    <GridViewColumn Header="D/Q/P" DisplayMemberBinding="{Binding Environment}"/>
+                    <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version}"/>
+                    <GridViewColumn Header="Stack" DisplayMemberBinding="{Binding Stack}"/>
+                    <GridViewColumn Header="CI/DI" DisplayMemberBinding="{Binding CIDI}"/>
+                    <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                    <GridViewColumn Header="DB" DisplayMemberBinding="{Binding DBType}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Border BorderBrush="#FFD4D4D4" BorderThickness="0,0,0,1" Background="#FFEAEAEA" Margin="0,0,5,0" Grid.Row="8">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontSize="14" HorizontalContentAlignment="Center" Padding="5,0,5,0" VerticalContentAlignment="Center">SAP ERS Server</Label>
+            </StackPanel>
+        </Border>
+
+        <ListView Background="AliceBlue" ItemsSource="{Binding SapErsServerList}" SelectionMode="Multiple" Margin="0,0,5,0" Grid.Row="9" Grid.ColumnSpan="1">
+            <ListView.View>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="System Information">
+                    <GridViewColumn Header="Customer" DisplayMemberBinding="{Binding Customer}"/>
+                    <GridViewColumn Header="SID" DisplayMemberBinding="{Binding SID}"/>
+                    <GridViewColumn Header="Host" DisplayMemberBinding="{Binding Hostname}" Width="120"/>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding ProductType}"/>
+                    <GridViewColumn Header="D/Q/P" DisplayMemberBinding="{Binding Environment}"/>
+                    <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version}"/>
+                    <GridViewColumn Header="Stack" DisplayMemberBinding="{Binding Stack}"/>
+                    <GridViewColumn Header="CI/DI" DisplayMemberBinding="{Binding CIDI}"/>
+                    <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                    <GridViewColumn Header="DB" DisplayMemberBinding="{Binding DBType}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Border BorderBrush="#FFD4D4D4" BorderThickness="0,0,0,1" Background="#FFEAEAEA" Grid.Column="1" Grid.Row="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontSize="14" HorizontalContentAlignment="Center" Padding="5,0,5,0" VerticalContentAlignment="Center">SAP AAS Server</Label>
+            </StackPanel>
+        </Border>
+
+        <ListView Background="AliceBlue" ItemsSource="{Binding SapAasServerList}" SelectionMode="Multiple" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="1">
+            <ListView.View>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="System Information">
+                    <GridViewColumn Header="Customer" DisplayMemberBinding="{Binding Customer}"/>
+                    <GridViewColumn Header="SID" DisplayMemberBinding="{Binding SID}"/>
+                    <GridViewColumn Header="Host" DisplayMemberBinding="{Binding Hostname}" Width="120"/>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding ProductType}"/>
+                    <GridViewColumn Header="D/Q/P" DisplayMemberBinding="{Binding Environment}"/>
+                    <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version}"/>
+                    <GridViewColumn Header="Stack" DisplayMemberBinding="{Binding Stack}"/>
+                    <GridViewColumn Header="CI/DI" DisplayMemberBinding="{Binding CIDI}"/>
+                    <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                    <GridViewColumn Header="DB" DisplayMemberBinding="{Binding DBType}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Border BorderBrush="#FFD4D4D4" BorderThickness="0,0,0,1" Background="#FFEAEAEA" Grid.Column="1" Grid.Row="6">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontSize="14" HorizontalContentAlignment="Center" Padding="5,0,5,0" VerticalContentAlignment="Center">Email Destinations</Label>
+            </StackPanel>
+        </Border>
+        
+        <ListBox Name="EmailList" Grid.Column="1" Grid.Row="7" ItemsSource="{Binding EmailDest}" MinHeight="20" BorderBrush="{x:Null}" Background="{x:Null}" BorderThickness="0,0,0,0" Margin="0,0,-1,0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
+        <Border BorderBrush="#FFD4D4D4" BorderThickness="0,0,0,1" Background="#FFEAEAEA" Grid.Column="1" Grid.Row="4">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontSize="14" HorizontalContentAlignment="Center" Padding="5,0,5,0" VerticalContentAlignment="Center">SAP User Data</Label>
+            </StackPanel>
+        </Border>
+        <StackPanel Grid.Row="5" Grid.Column="1" Margin="20,10,20,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,2,0,2" Text="sapsa Password: "/>
+                <StackPanel Grid.Column="1" Grid.Row="0">
+                    <Grid>
+                        <TextBox Visibility="Collapsed" Margin="0,0,25,0" IsEnabled="False" MaxLength="30"  Text="{Binding SapUserSapsaPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <components:BindablePasswordBox x:Name="sapsaPass" Grid.Column="0" Grid.Row="0" Margin="0,0,25,0" IsEnabled="False" Password="{Binding SapUserSapsaPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Margin="0,0,5,0" PreviewMouseDown="Button_MouseDownSapsa" PreviewMouseUp="Button_MouseUpSapsa" HorizontalAlignment="Right" Background="White" BorderBrush="{x:Null}" >
+                            <Image Source="/img/icons/theye.png" HorizontalAlignment="Stretch" Width="15"/>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+                <TextBlock Grid.Column="0" Grid.Row="1" Margin="0,2,0,2" Text="Disaster Recovery User: "/>
+                <TextBox Grid.Column="1" Grid.Row="1" Margin="0,0,25,2" Text="{Binding SapUserDisasterRecoveryUser}" IsEnabled="False"/>
+                <TextBlock Grid.Column="0" Grid.Row="2" Margin="0,2,0,2" Text="Disaster Recovery Password: "/>
+                <StackPanel Grid.Column="1" Grid.Row="2">
+                    <Grid>
+                        <TextBox Visibility="Collapsed" Margin="0,0,25,0" IsEnabled="False" MaxLength="30"  Text="{Binding SapUserDisasterRecoveryPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <components:BindablePasswordBox x:Name="UserDisasPass" Margin="0,0,25,0" IsEnabled="False" Password="{Binding SapUserDisasterRecoveryPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Margin="0,0,5,0" PreviewMouseDown="Button_MouseDownUsrDisRec" PreviewMouseUp="Button_MouseUpUsrDisRec" HorizontalAlignment="Right" Background="White" BorderBrush="{x:Null}" >
+                            <Image Source="/img/icons/theye.png" HorizontalAlignment="Stretch" Width="15"/>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

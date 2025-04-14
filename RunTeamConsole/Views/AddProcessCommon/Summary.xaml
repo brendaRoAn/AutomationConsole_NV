@@ -1,0 +1,441 @@
+﻿<UserControl x:Class="RunTeamConsole.Views.Summary"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+xmlns:local="clr-namespace:RunTeamConsole" xmlns:components="clr-namespace:RunTeamConsole.Components" xmlns:local1="clr-namespace:RunTeamConsole.Models"
+mc:Ignorable="d"
+d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
+        <local:InputDataTemplateSelector x:Key="InputsTemplateSelector"/>
+        <DataTemplate x:Key="OSXFILESYSTEMEXTENSIONtemplate">
+            <Border Name="border" BorderThickness="1" Padding="2" Margin="2">
+                <StackPanel Margin="10,10,0,5" Orientation="Horizontal">
+                    <Label FontWeight="Bold">
+                        <TextBlock Text="{Binding InputsSet[0].Description}"></TextBlock>
+                    </Label>
+                    <Label>
+                        <TextBlock Text="{Binding InputsSet[0].Value}"></TextBlock>
+                    </Label>
+                    <Label FontWeight="Bold">
+                        <TextBlock Text="{Binding InputsSet[1].Description}"></TextBlock>
+                    </Label>
+                    <Label>
+                        <TextBlock Text="{Binding InputsSet[1].Value}"></TextBlock>
+                    </Label>
+                    <Label>
+                        <TextBlock Text="{Binding InputsSet[2].Value}"></TextBlock>
+                    </Label>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="CREATEDIRECTORYtemplate">
+            <Border Name="border" BorderThickness="1" Padding="2" Margin="2">
+                <StackPanel Margin="10,10,0,5" Orientation="Horizontal">
+                    <Label FontWeight="Bold">DIR NAME:</Label>
+                    <Label>
+                        <TextBlock Text="{Binding InputsSet[0].Value}"></TextBlock>
+                    </Label>
+                    <Label FontWeight="Bold">DIR PATH:</Label>
+                    <Label>
+                        <TextBlock Text="{Binding InputsSet[1].Value}"></TextBlock>
+                    </Label>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="TRANSACTIONStemplate">
+            <Border Name="border" BorderThickness="1" Padding="2" Margin="2">
+                <StackPanel Margin="10,10,0,5" Orientation="Horizontal">
+                    <Label FontWeight="Bold">Transactions selected:</Label>
+                    <Label>
+                        <TextBlock Text="{Binding InputsSet[0].Value}"></TextBlock>
+                    </Label>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+    
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="34"/>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="13*"/>
+            <RowDefinition Height="85*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="82*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Inicia Encabezados-->
+        <Border BorderBrush="#FFECECEC" BorderThickness="0,0,0,1" Grid.ColumnSpan="2" Background="WhiteSmoke" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label HorizontalAlignment="Stretch" Background="{x:Null}" Padding="10,8,10,8" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Center" FontFamily="72" Content="Summary " Grid.ColumnSpan="2"/>
+            </StackPanel>
+        </Border>
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Margin="-10,0,0,0" Height="24">
+            <Label HorizontalAlignment="Stretch" Background="{x:Null}" Padding="10,4,5,4" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Center" FontFamily="72" Content="Process Type:" Grid.ColumnSpan="2"/>
+            <Label HorizontalAlignment="Stretch" Background="{x:Null}" Padding="0,4,10,4" FontSize="14" HorizontalContentAlignment="Center" FontFamily="72" Content="{Binding SelectedProcess.Title}" Grid.ColumnSpan="2"/>
+        </StackPanel>
+        <!--Termina Encabezados-->
+
+        <!--Inicia Servidor Seleccionado-->
+        <Border BorderBrush="#FFD4D4D4" BorderThickness="0,0,0,1" Background="#FFEAEAEA" Grid.Row="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontSize="14" HorizontalContentAlignment="Center" Padding="5,0,5,0" VerticalContentAlignment="Center">Servers</Label>
+                <Label FontSize="11" HorizontalContentAlignment="Center" FontStyle="Italic" Background="{x:Null}" VerticalContentAlignment="Center" Content="(Select one from the list to see specific settings)"/>
+            </StackPanel>
+        </Border>
+        <ListView Background="AliceBlue" ItemsSource="{Binding SelectedServersList}" SelectedItem="{Binding SummarySelectedServer}" Grid.Row="3" Grid.ColumnSpan="1" ScrollViewer.CanContentScroll="True">
+            <ListView.View>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="System Information">
+                    <GridViewColumn Header="Customer" DisplayMemberBinding="{Binding Customer}"/>
+                    <GridViewColumn Header="SID" DisplayMemberBinding="{Binding SID}"/>
+                    <GridViewColumn Header="Host" DisplayMemberBinding="{Binding Hostname}" Width="120"/>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding ProductType}"/>
+                    <GridViewColumn Header="DB Type" DisplayMemberBinding="{Binding DBType}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <!--Termina Servidor Seleccionado-->
+        
+        <!--Inicia Sección de Email-->
+        <Border BorderBrush="#FFD4D4D4" BorderThickness="0,0,0,1" Grid.Row="4">
+            <Label FontSize="14" HorizontalContentAlignment="Center" Background="#FFEAEAEA">Email Destinations</Label>
+        </Border>
+        <ListBox Name="EmailList" Grid.Row="5" ItemsSource="{Binding EmailDest}" MinHeight="20" BorderBrush="{x:Null}" Background="{x:Null}" BorderThickness="0,0,0,0" Margin="0,0,-1,0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <!--Termina Sección de Email-->
+        
+        <!--Inicia Additional Settings-->
+        <StackPanel Grid.Column="1" Grid.Row="2" CanVerticallyScroll="True" Grid.RowSpan="4">
+            
+            <Border BorderBrush="#FFD4D4D4" BorderThickness="0,1,0,1" Background="#FFEAEAEA">
+                <Label FontSize="14" HorizontalContentAlignment="Center">Additional Settings / Credentials</Label>
+            </Border>
+            <StackPanel Margin="0,0,0,15">
+                <ItemsControl ItemsSource="{Binding SummaryExtraIputSet}" ItemTemplateSelector="{StaticResource InputsTemplateSelector}"  Margin="0,10,0,0"/>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding AtLeastOneSAPKernelPackageSelectedForOracle, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package for Oracle DB:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                </StackPanel>
+                <ListView ItemsSource="{Binding SelectedSAPKernelPackageForOracle.PackageFiles}" Visibility="{Binding AtLeastOneSAPKernelPackageSelectedForOracle, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding OSMatch}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                            <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding AtLeastOneSAPKernelPackageSelectedForSybase, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package for Sybase DB:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                </StackPanel>
+                <ListView ItemsSource="{Binding SelectedSAPKernelPackageForSybase.PackageFiles}" Visibility="{Binding AtLeastOneSAPKernelPackageSelectedForSybase, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding OSMatch}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                            <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding AtLeastOneSAPKernelPackageSelectedForDB2, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                </StackPanel>
+                <ListView ItemsSource="{Binding SelectedSAPKernelPackageForDB2.PackageFiles}" Visibility="{Binding AtLeastOneSAPKernelPackageSelectedForDB2, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding OSMatch}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                            <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding AtLeastOneSAPKernelPackageSelectedForHana, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                </StackPanel>
+                <ListView ItemsSource="{Binding SelectedSAPKernelPackageForHana.PackageFiles}" Visibility="{Binding AtLeastOneSAPKernelPackageSelectedForHana, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding OSMatch}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                            <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding AtLeastOneSAPKernelPackageSelectedForSAPDB, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                </StackPanel>
+                <ListView ItemsSource="{Binding SelectedSAPKernelPackageForSAPDB.PackageFiles}" Visibility="{Binding AtLeastOneSAPKernelPackageSelectedForSAPDB, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding OSMatch}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                            <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding AtLeastOneSAPKernelPackageSelectedForWebD, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                </StackPanel>
+                <ListView ItemsSource="{Binding SelectedSAPKernelPackageForWebD.PackageFiles}" Visibility="{Binding AtLeastOneSAPKernelPackageSelectedForWebD, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding OSMatch}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                            <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding AtLeastOneSelectedOraclePackageForLinux, Converter={StaticResource VisibleIfTrueConverter}}">
+                        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="{Binding SelectedOraclePackageForLinux.Name}" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                    </StackPanel>
+                    <ListView ItemsSource="{Binding SelectedOraclePackageForLinux.PackageFiles}" Visibility="{Binding AtLeastOneSelectedOraclePackageForLinux, Converter={StaticResource VisibleIfTrueConverter}}">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                                <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding AtLeastOneSelectedOraclePackageForAIX, Converter={StaticResource VisibleIfTrueConverter}}">
+                        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="{Binding SelectedOraclePackageForAIX.Name}" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                    </StackPanel>
+                    <ListView ItemsSource="{Binding SelectedOraclePackageForAIX.PackageFiles}" Visibility="{Binding AtLeastOneSelectedOraclePackageForAIX, Converter={StaticResource VisibleIfTrueConverter}}">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                                <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding AtLeastOneSelecteSAPHostAgentPackageForLinux, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="{Binding SelectedSAPHostAgentPackageForLinux.Version}" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                </StackPanel>
+                <ListView ItemsSource="{Binding SelectedSAPHostAgentPackagesForLinux}" Visibility="{Binding AtLeastOneSelecteSAPHostAgentPackageForLinux, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                            <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding FileName}"/>
+                            <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                
+                <StackPanel Orientation="Horizontal" Visibility="{Binding AtLeastOneSelectedSAPHostAgentPackageForAIX, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="{Binding SelectedSAPHostAgentPackageForAIX.Version}" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                </StackPanel>
+                <ListView ItemsSource="{Binding SelectedSAPHostAgentPackagesForAIX}" Visibility="{Binding AtLeastOneSelectedSAPHostAgentPackageForAIX, Converter={StaticResource VisibleIfTrueConverter}}">
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                            <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding FileName}"/>
+                            <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+            <!--Inicia sección LINUX DB2 Install-->
+            <StackPanel Orientation="Horizontal" Visibility="{Binding AtLeastOneDB2InstallPackageSelectedForLinux, Converter={StaticResource VisibleIfTrueConverter}}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Catalog for Linux:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                    
+                    <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="10,10,0,0" Visibility="{Binding AtLeastOneDB2InstallPackageSelectedForLinux, Converter={StaticResource VisibleIfTrueConverter}}">With HA Cluster Management (Pacemaker):</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="10,10,0,0" Visibility="{Binding AtLeastOneDB2InstallPackageSelectedForLinux, Converter={StaticResource VisibleIfTrueConverter}}" IsEnabled="False" Text="{Binding Pacemaker}"/>
+
+                    <TextBlock Grid.Row="2"/>
+                </Grid>
+                
+            </StackPanel>
+            <ListView Grid.Row="1" ItemsSource="{Binding SelectedDb2InstallCatalogForLinux.File}" Visibility="{Binding AtLeastOneDB2InstallPackageSelectedForLinux, Converter={StaticResource VisibleIfTrueConverter}}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding OSMatch}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Catalog Content">
+                        <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding FileName}"/>
+                        <GridViewColumn Header="File Description" DisplayMemberBinding="{Binding FileDescription}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+
+            <!--Finaliza sección LINUX DB2 Install-->
+            <StackPanel Orientation="Horizontal" Visibility="{Binding AtLeastOneSelectedDb2InstallPackageForAIX, Converter={StaticResource VisibleIfTrueConverter}}">
+                <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Catalog for AIX:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+            </StackPanel>
+            <ListView ItemsSource="{Binding SelectedDb2InstallCatalogForAIX.File}" Visibility="{Binding AtLeastOneSelectedDb2InstallPackageForAIX, Converter={StaticResource VisibleIfTrueConverter}}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding OSMatch}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Catalog Content">
+                        <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding FileName}"/>
+                        <GridViewColumn Header="Description" DisplayMemberBinding="{Binding FileDescription}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <StackPanel Grid.Column="1" Grid.Row="2" CanVerticallyScroll="True" DataContext="{Binding Credentials}" Visibility="{Binding ShowCredentialsSummary, Converter={StaticResource VisibleIfTrueConverter}}">
+                <StackPanel Margin="0,0,0,2">
+                    <Border BorderBrush="#FFD4D4D4" BorderThickness="0,1,0,1" Background="#FFF7F7F7">
+                        <Label FontSize="14" HorizontalContentAlignment="Center">Credentials</Label>
+                    </Border>
+
+                    <StackPanel Margin="10,10,0,15" Orientation="Horizontal" VerticalAlignment="Stretch" Visibility="{Binding ShowSAPCredentials, Converter={StaticResource VisibleIfTrueConverter}}">
+                        <TextBlock FontWeight="Bold">SAP IDM user <Span Foreground="Red" FontWeight="Bold">*</Span></TextBlock>
+                        <Label>
+                            <TextBox MinWidth="100"  Text="{Binding SAPGuiUser}"/>
+                        </Label>
+                        <TextBlock FontWeight="Bold" Width="76">Password <Span Foreground="Red" FontWeight="Bold">*</Span></TextBlock>
+                        <Grid>
+                            <TextBox Visibility="Collapsed" IsEnabled="True" MinWidth="100" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Text="{Binding SAPGuiPass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <components:BindablePasswordBox IsEnabled="True" MinWidth="100" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Password="{Binding SAPGuiPass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button PreviewMouseDown="Button_MouseDown" PreviewMouseUp="Button_MouseUp" HorizontalAlignment="Right" Background="White" BorderBrush="{x:Null}">
+                                <Image Source="/img/icons/theye.png" HorizontalAlignment="Stretch" Width="15"/>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel Margin="10,10,0,15" Orientation="Horizontal" VerticalAlignment="Stretch" Visibility="{Binding ShowSIDADMCredentials, Converter={StaticResource VisibleIfTrueConverter}}">
+                        <TextBlock FontWeight="Bold">SIDADM user <Span Foreground="Red" FontWeight="Bold">*</Span></TextBlock>
+                        <Label>
+                            <TextBox MinWidth="100" Text="{Binding SIDAdmUser}" Width="76"/>
+                        </Label>
+                        <TextBlock FontWeight="Bold">Password <Span Foreground="Red" FontWeight="Bold">*</Span></TextBlock>
+                        <Grid>
+                            <TextBox Visibility="Collapsed" IsEnabled="True" MinWidth="100" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Text="{Binding SIDAdmPass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <!--<components:BindablePasswordBox IsEnabled="True" MinWidth="100" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Password="{Binding SIDAdmPass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button PreviewMouseDown="Button_MouseDown" PreviewMouseUp="Button_MouseUp" HorizontalAlignment="Right" Background="White" BorderBrush="{x:Null}">
+                                <Image Source="/img/icons/theye.png" HorizontalAlignment="Stretch" Width="15"/>
+                            </Button>-->
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel Margin="10,10,0,15" Orientation="Horizontal" VerticalAlignment="Stretch" Visibility="{Binding ShowDBCredentials, Converter={StaticResource VisibleIfTrueConverter}}">
+                        <TextBlock FontWeight="Bold">DB User <Span Foreground="Red" FontWeight="Bold">*</Span></TextBlock>
+                        <Label>
+                            <TextBox MinWidth="100" Text="{Binding DBUser}"/>
+                        </Label>
+                        <TextBlock FontWeight="Bold">DB Password <Span Foreground="Red" FontWeight="Bold">*</Span></TextBlock>
+                        <Grid>
+                            <TextBox Visibility="Collapsed" IsEnabled="True" MinWidth="100" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Text="{Binding DBPass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <components:BindablePasswordBox IsEnabled="True" MinWidth="100" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Password="{Binding DBPass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button PreviewMouseDown="Button_MouseDown" PreviewMouseUp="Button_MouseUp" HorizontalAlignment="Right" Background="White" BorderBrush="{x:Null}">
+                                <Image Source="/img/icons/theye.png" HorizontalAlignment="Stretch" Width="15"/>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel Margin="10,10,0,15" Orientation="Horizontal" VerticalAlignment="Stretch" Visibility="{Binding ShowSchemaPassword, Converter={StaticResource VisibleIfTrueConverter}}">
+                        <TextBlock FontWeight="Bold">DB Schema Password <Span Foreground="Red" FontWeight="Bold">*</Span></TextBlock>
+                        <Grid>
+                            <TextBox Visibility="Collapsed" IsEnabled="True" MinWidth="100" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Text="{Binding DBSchemaPass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <components:BindablePasswordBox IsEnabled="True" MinWidth="100" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Password="{Binding DBSchemaPass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button PreviewMouseDown="Button_MouseDown" PreviewMouseUp="Button_MouseUp" HorizontalAlignment="Right" Background="White" BorderBrush="{x:Null}">
+                                <Image Source="/img/icons/theye.png" HorizontalAlignment="Stretch" Width="15"/>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel Margin="10,10,0,15" Orientation="Horizontal" VerticalAlignment="Stretch" Visibility="{Binding ShowWebCredentials, Converter={StaticResource VisibleIfTrueConverter}}">
+                        <TextBlock FontWeight="Bold">Web User <Span Foreground="Red" FontWeight="Bold">*</Span></TextBlock>
+                        <Label>
+                            <TextBox MinWidth="100" Text="{Binding WebUser}"/>
+                        </Label>
+                        <TextBlock FontWeight="Bold">Web Password <Span Foreground="Red" FontWeight="Bold">*</Span></TextBlock>
+                        <Grid>
+                            <TextBox Visibility="Collapsed" IsEnabled="True" MinWidth="100" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Text="{Binding WebPass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <components:BindablePasswordBox IsEnabled="True" MinWidth="100" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Password="{Binding WebPass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button PreviewMouseDown="Button_MouseDown" PreviewMouseUp="Button_MouseUp" HorizontalAlignment="Right" Background="White" BorderBrush="{x:Null}">
+                                <Image Source="/img/icons/theye.png" HorizontalAlignment="Stretch" Width="15"/>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+        </StackPanel>
+        <!--Termina Additional Settings-->
+    </Grid>
+</UserControl>

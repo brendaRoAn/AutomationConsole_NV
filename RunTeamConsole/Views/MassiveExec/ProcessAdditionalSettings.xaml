@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="RunTeamConsole.Views.MassiveExec.ProcessAdditionalSettings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunTeamConsole.Views.MassiveExec"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel Background="White">
+        <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.RowSpan="2">
+            <Grid>
+                <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" Content="Process Script 01"/>
+                <Label HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="#FFAAAAAA" Content="*Fill in the information according to the parameters requested by the selected script"/>
+            </Grid>
+            <Border BorderBrush="#FFD8D8D8" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Margin="13,2,2,2" HorizontalAlignment="Left">
+                        <Label Content="Parameter 01"/>
+                        <Label Content="Parameter 02"/>
+                        <Label Content="Parameter 03"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,5">
+                        <TextBox Margin="0,6,0,0" MinWidth="150"/>
+                        <TextBox Margin="0,8,0,0"/>
+                        <TextBox Margin="0,8,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.RowSpan="2">
+            <Grid>
+                <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" Content="Process Script 02"/>
+                <Label HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="#FFAAAAAA" Content="*Fill in the information according to the parameters requested by the selected script"/>
+            </Grid>
+            <Border BorderBrush="#FFD8D8D8" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Margin="13,2,2,2" HorizontalAlignment="Left">
+                        <Label Content="Parameter 01" Margin="0,1,0,0"/>
+                        <Label Content="Parameter 02" Margin="0,2,0,1"/>
+                        <Label Content="Parameter 03"/>
+                        <Label Content="Parameter 04" Margin="0,0,0,1"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,5">
+                        <ComboBox MinWidth="150" Margin="0,5,0,0">
+                            <ComboBoxItem Content="Select an option"/>
+                        </ComboBox>
+                        <DatePicker Margin="0,6,0,0"></DatePicker>
+                        <CheckBox Margin="0,6,0,0">Check value</CheckBox>
+                        <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
+                            <RadioButton>Select value</RadioButton>
+                            <RadioButton>Select value</RadioButton>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

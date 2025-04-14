@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="RunTeamConsole.Views.SapInstall.DBSettings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunTeamConsole.Views.SapInstall"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="White">
+        <GroupBox Margin="10,10,10,10" Padding="5,10,5,5" Grid.ColumnSpan="2">
+            <GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="3,0" />
+                    <TextBlock FontWeight="Normal">DataBase Settings</TextBlock>
+                </StackPanel>
+            </GroupBox.Header>
+            <StackPanel>
+                <StackPanel Height="385" Margin="10,0,390,0">
+                    <TextBlock Height="18" TextWrapping="Wrap" Text="HANA SID User:" Width="135" HorizontalAlignment="Left" Margin="0,10,0,10"/>
+                    <TextBox Text="{Binding HanaSidUser}" Height="18" TextWrapping="Wrap" Width="168" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="40,-28"/>
+                    <TextBlock Height="18" TextWrapping="Wrap" Text="Password:" Width="135" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+                    <PasswordBox Height="18" Width="168" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="40,-28"></PasswordBox>
+                    <TextBlock Height="18" TextWrapping="Wrap" Text="HANA Version:" Width="135" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+                    <TextBox Text="{Binding HanaVersion}" Height="18" TextWrapping="Wrap" Width="168" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="40,-28"/>
+                    <TextBlock Height="18" TextWrapping="Wrap" Text="HANA Client Version:" Width="135" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+                    <TextBox Text="{Binding HanaClientVersion}" Height="18" TextWrapping="Wrap" Width="168" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="40,-28"/>
+                    <TextBlock Height="18" TextWrapping="Wrap" Text="HANA Instance Number:" Width="135" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+                    <TextBox Text="{Binding HanaInstanceNumber}" Height="18" TextWrapping="Wrap" Width="168" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="40,-28"/>
+                    <TextBlock Height="18" TextWrapping="Wrap" Text="HANA sidamd VID:" Width="135" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+                    <TextBox Text="{Binding HanaSidAmdVid}" Height="18" TextWrapping="Wrap" Width="168" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="40,-28"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</UserControl>

@@ -1,0 +1,123 @@
+﻿<UserControl x:Class="RunTeamConsole.Views.StartSapHadr.SapAasServer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunTeamConsole.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="25*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="353*"/>
+            <ColumnDefinition Width="39*"/>
+            <ColumnDefinition Width="343*"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="#FFC7C7C7" BorderThickness="0,0,0,1" Background="#FFF1F1F1" Grid.ColumnSpan="3">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontFamily="72" FontWeight="Bold" Content="Select servers to execute your process &#xD;&#xA;"/>
+            </StackPanel>
+        </Border>
+        <Grid VerticalAlignment="Center" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="11*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Border CornerRadius="5,0,0,5" BorderThickness="1,1,0,1" BorderBrush="#FFBFBFBF" Margin="5,5,0,5">
+                <TextBox x:Name="txtNameToSearch" Text="{Binding SearchStringAas, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Foreground="#FF7E7E7E" FontStyle="Italic" BorderThickness="0,0,0,0" Margin="2,2,0,2" ToolTip="Search for a server by SID, Customer, Type, Host and more"/>
+            </Border>
+            <Button BorderBrush="{x:Null}" Background="#FFD4E7F1" Margin="0,5,10,5" HorizontalAlignment="Stretch" Grid.Column="1" Padding="0,0,0,0" BorderThickness="0,0,0,0">
+                <Image Source="/img/icons/search.png" HorizontalAlignment="Right" Height="22
+                       " Width="20" Margin="3,2,3,2" />
+            </Button>
+            <Label Grid.Row="1" Padding="10,0,5,0" FontStyle="Italic" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2">Select your server(s) from the list on the left or use the search box to filter them. Once selected, use the buttons to add the server(s) to the list on the right.</Label>
+        </Grid>
+        <Label Grid.Column="3" Grid.Row="2" Background="#FFF7F7F7" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="72">Selected Servers</Label>
+        <Label Grid.Row="2" Background="#FFF7F7F7" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="72">All Servers</Label>
+        <ListView Background="AliceBlue" ItemsSource="{Binding SystemCatalog}" SelectionMode="Multiple" Grid.Row="3">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="System Information">
+                    <GridViewColumn Width="30">
+                        <GridViewColumn.Header>
+                            <CheckBox IsChecked="{Binding SelectAllServersCheckboxIsChecked}" 
+                                      Command="{Binding SelectAllServersCommand}" 
+                                      CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Mode=TwoWay, Path=IsSelected}" IsEnabled="{Binding IsEnabled}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Customer" DisplayMemberBinding="{Binding Customer}"/>
+                    <GridViewColumn Header="SID" DisplayMemberBinding="{Binding SID}"/>
+                    <GridViewColumn Header="Host" DisplayMemberBinding="{Binding Hostname}" Width="120"/>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding ProductType}"/>
+                    <GridViewColumn Header="D/Q/P" DisplayMemberBinding="{Binding Environment}"/>
+                    <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version}"/>
+                    <GridViewColumn Header="Stack" DisplayMemberBinding="{Binding Stack}"/>
+                    <GridViewColumn Header="CI/DI" DisplayMemberBinding="{Binding CIDI}"/>
+                    <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                    <GridViewColumn Header="DB" DisplayMemberBinding="{Binding DBType}"/>
+                    <GridViewColumn Header="Region" DisplayMemberBinding="{Binding Region}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Center">
+            <Button BorderBrush="{x:Null}" Background="{x:Null}" Width="Auto" Command="{Binding MoveToSelectedServers}">
+                <Image Source="/img/icons/arrow-r.png" ToolTip="Select Server" Margin="4,0,4,0"/>
+            </Button>
+            <Button BorderBrush="{x:Null}" Background="{x:Null}" Width="Auto" Margin="0,17,0,0" Command="{Binding RemoveFromSelectedServers}">
+                <Image Source="/img/icons/arrow-l.png" ToolTip="Select Server" Margin="4,0,4,0"/>
+            </Button>
+        </StackPanel>
+        <ListView Background="AliceBlue" ItemsSource="{Binding SelectedServersList}" SelectionMode="Multiple" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="1">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelectedOnSelectedList}"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="System Information">
+                    <GridViewColumn Width="30">
+                        <GridViewColumn.Header>
+                            <CheckBox IsChecked="{Binding SelectAllServersOnSelectedListCheckboxIsChecked}" 
+                                      Command="{Binding SelectAllServersOnSelectedListCommand}" 
+                                      CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Mode=TwoWay, Path=IsSelectedOnSelectedList}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Customer" DisplayMemberBinding="{Binding Customer}"/>
+                    <GridViewColumn Header="SID" DisplayMemberBinding="{Binding SID}"/>
+                    <GridViewColumn Header="Host" DisplayMemberBinding="{Binding Hostname}" Width="120"/>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding ProductType}"/>
+                    <GridViewColumn Header="D/Q/P" DisplayMemberBinding="{Binding Environment}"/>
+                    <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version}"/>
+                    <GridViewColumn Header="Stack" DisplayMemberBinding="{Binding Stack}"/>
+                    <GridViewColumn Header="CI/DI" DisplayMemberBinding="{Binding CIDI}"/>
+                    <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                    <GridViewColumn Header="DB" DisplayMemberBinding="{Binding DBType}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

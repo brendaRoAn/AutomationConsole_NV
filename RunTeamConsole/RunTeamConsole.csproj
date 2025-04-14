@@ -1,0 +1,288 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PublishTrimmed>true</PublishTrimmed>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishSingleFile>true</PublishSingleFile>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <TrimMode>link</TrimMode>
+    <SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
+    <UseWPF>true</UseWPF>
+	<Description>Automation Console</Description>
+    <Company>Syntax</Company>
+    <ApplicationIcon>logicon.ico</ApplicationIcon>
+    <PackageIcon>logicon.ico</PackageIcon>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <AssemblyVersion>1.7.0.0</AssemblyVersion>
+    <FileVersion>1.7.0.0</FileVersion>
+    <AssemblyName>AutomationConsole</AssemblyName>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="add.png" />
+    <None Remove="delete.png" />
+    <None Remove="footerImg.png" />
+    <None Remove="img\icons\add.png" />
+	<None Remove="img\icons\add3.png" />
+	<None Remove="img\icons\arrow-l-clean.png" />
+    <None Remove="img\icons\arrow-l.png" />
+    <None Remove="img\icons\arrow-r.png" />
+    <None Remove="img\icons\back-clean.png" />
+    <None Remove="img\icons\calendar.png" />
+    <None Remove="img\icons\clock.png" />
+    <None Remove="img\icons\continue-gray.png" />
+    <None Remove="img\icons\continue.png" />
+    <None Remove="img\icons\deactivatedL.png" />
+    <None Remove="img\icons\deactivatedR.png" />
+    <None Remove="img\icons\delete-email.png" />
+    <None Remove="img\icons\delete.png" />
+    <None Remove="img\icons\done.png" />
+    <None Remove="img\icons\edit.png" />
+    <None Remove="img\icons\favs.png" />
+    <None Remove="img\icons\filter-add.png" />
+    <None Remove="img\icons\filter-remove.png" />
+    <None Remove="img\icons\home.png" />
+    <None Remove="img\icons\info-lines.png" />
+    <None Remove="img\icons\info.ico" />
+    <None Remove="img\icons\log.ico" />
+    <None Remove="img\icons\log.png" />
+    <None Remove="img\icons\pause.png" />
+    <None Remove="img\icons\photo-gray.png" />
+    <None Remove="img\icons\photo.png" />
+    <None Remove="img\icons\play-clean.png" />
+    <None Remove="img\icons\play.png" />
+    <None Remove="img\icons\processing.png" />
+    <None Remove="img\icons\profile.png" />
+    <None Remove="img\icons\refresh.png" />
+    <None Remove="img\icons\repeat-alt.png" />
+    <None Remove="img\icons\repeat-gray.png" />
+    <None Remove="img\icons\repeat.png" />
+    <None Remove="img\icons\search.png" />
+    <None Remove="img\icons\share.png" />
+    <None Remove="img\icons\stepsarrow-b.png" />
+    <None Remove="img\icons\stepsarrow.png" />
+    <None Remove="img\icons\theye.png" />
+    <None Remove="img\icons\trashbin-gray.png" />
+    <None Remove="img\icons\trashbin.png" />
+    <None Remove="completedmini.png" />
+    <None Remove="img\icons\upload-solid.png" />
+    <None Remove="img\icons\warning.png" />
+    <None Remove="img\logos\logoS.png" />
+    <None Remove="img\logos\syntaxMin.png" />
+    <None Remove="img\processIcons\cloud-ico.png" />
+    <None Remove="img\processIcons\db-ico-p.png" />
+    <None Remove="img\processIcons\db-ico.png" />
+    <None Remove="img\processIcons\hc-ico.png" />
+    <None Remove="img\processIcons\my-ico.png" />
+    <None Remove="img\processIcons\osx-ico.png" />
+    <None Remove="img\processIcons\other-hc-ico.png" />
+    <None Remove="img\processIcons\other-ico.png" />
+    <None Remove="img\processIcons\quiklogo.png" />
+    <None Remove="img\processIcons\sap-logo.png" />
+    <None Remove="img\processIcons\teck-logo.png" />
+    <None Remove="img\processIcons\win-logo.png" />
+    <!--<None Remove="img\splash.png" />-->
+	<!--<None Remove="img\Screen\NewSplash.png" />-->
+    <None Remove="img\status\emptymini.png" />
+    <None Remove="img\status\errormini.png" />
+    <None Remove="img\status\nextmini.png" />
+    <None Remove="img\status\pausedmini.png" />
+    <None Remove="img\status\processingmini.png" />
+    <None Remove="img\status\retrymini.png" />
+    <None Remove="img\status\scheduledmini.png" />
+    <None Remove="img\status\warning-mini.png" />
+    <None Remove="img\userinfobanner.png" />
+    <None Remove="img\windows\2031.ico" />
+    <None Remove="img\windows\2056.ico" />
+    <None Remove="img\windows\631.ico" />
+    <None Remove="img\windows\987.ico" />
+    <None Remove="img\windows\Excel-icon.png" />
+    <None Remove="play.png" />
+    <None Remove="processLogo.png" />
+    <None Remove="trashbin.png" />
+    <None Remove="Views\search.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Views\View1.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <COMReference Include="{000204ef-0000-0000-c000-000000000046}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>6</VersionMajor>
+      <Guid>000204ef-0000-0000-c000-000000000046</Guid>
+    </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="footerImg.png" />
+    <Resource Include="img\icons\add.png" />
+	<Resource Include="img\icons\add3.png" />
+	<Resource Include="img\icons\arrow-l-clean.png" />
+    <Resource Include="img\icons\arrow-l.png" />
+    <Resource Include="img\icons\arrow-r.png" />
+    <Resource Include="img\icons\back-clean.png" />
+    <Resource Include="img\icons\calendar.png" />
+    <Resource Include="img\icons\clock.png" />
+    <Resource Include="img\icons\continue-gray.png" />
+    <Resource Include="img\icons\continue.png" />
+    <Resource Include="img\icons\deactivatedL.png" />
+    <Resource Include="img\icons\deactivatedR.png" />
+    <Resource Include="img\icons\delete-email.png" />
+    <Resource Include="img\icons\delete.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\icons\done.png" />
+    <Resource Include="img\icons\edit.png" />
+    <Resource Include="img\icons\favs.png" />
+    <Resource Include="img\icons\filter-add.png" />
+    <Resource Include="img\icons\filter-remove.png" />
+    <Resource Include="img\icons\home.png" />
+    <Resource Include="img\icons\info-lines.png" />
+    <Resource Include="img\icons\info.ico" />
+    <Resource Include="img\icons\info.png" />
+    <Resource Include="img\icons\log.ico" />
+    <Resource Include="img\icons\log.png" />
+    <Resource Include="img\icons\pause.png" />
+    <Resource Include="img\icons\photo-gray.png" />
+    <Resource Include="img\icons\photo.png" />
+    <Resource Include="img\icons\play-clean.png" />
+    <Resource Include="img\icons\play.png" />
+    <Resource Include="img\icons\processing.png" />
+    <Resource Include="img\icons\profile.png" />
+    <Resource Include="img\icons\refresh.png" />
+    <Resource Include="img\icons\repeat-alt.png" />
+    <Resource Include="img\icons\repeat-gray.png" />
+    <Resource Include="img\icons\repeat.png" />
+    <Resource Include="img\icons\search.png" />
+    <Resource Include="img\icons\share.png" />
+    <Resource Include="img\icons\stepsarrow-b.png" />
+    <Resource Include="img\icons\stepsarrow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\icons\theye.png" />
+    <Resource Include="img\icons\trashbin-gray.png" />
+    <Resource Include="img\icons\trashbin.png" />
+    <Resource Include="img\icons\upload-solid.png" />
+    <Resource Include="img\icons\warning.png" />
+    <Resource Include="img\logos\logoS.png" />
+    <Resource Include="img\logos\syntaxMin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\processIcons\cloud-ico.png" />
+    <Resource Include="img\processIcons\db-ico-p.png" />
+    <Resource Include="img\processIcons\db-ico.png" />
+    <Resource Include="img\processIcons\hc-ico.png" />
+    <Resource Include="img\processIcons\my-ico.png" />
+    <Resource Include="img\processIcons\osx-ico.png" />
+    <Resource Include="img\processIcons\other-hc-ico.png" />
+    <Resource Include="img\processIcons\other-ico.png" />
+    <Resource Include="img\processIcons\quiklogo.png" />
+    <Resource Include="img\processIcons\sap-logo.png" />
+    <Resource Include="img\processIcons\teck-logo.png" />
+    <Resource Include="img\processIcons\win-logo.png" />
+    <Resource Include="img\status\completedmini.png" />
+    <Resource Include="img\status\emptymini.png" />
+    <Resource Include="img\status\errormini.png" />
+    <Resource Include="img\status\nextmini.png" />
+    <Resource Include="img\status\pausedmini.png" />
+    <Resource Include="img\status\processingmini.png" />
+    <Resource Include="img\status\retrymini.png" />
+    <Resource Include="img\status\scheduledmini.png" />
+    <Resource Include="img\status\warning-mini.png" />
+    <Resource Include="img\userinfobanner.png" />
+    <Resource Include="img\windows\2031.ico" />
+    <Resource Include="img\windows\2056.ico" />
+    <Resource Include="img\windows\631.ico" />
+    <Resource Include="img\windows\987.ico" />
+    <Resource Include="img\windows\Excel-icon.png" />
+    <Resource Include="processLogo.png" />
+	<Resource Include="img\Screen\NewSplash_OLD.png" />
+    <Resource Include="Views\search.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DB2Install\SummaryDB2Install.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SapInstallPostSteps\SummarySAPInstallPostOracle.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SapInstallPostSteps\SummarySAPInstallPostHANA.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\DB2Install\SummaryDB2Install.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SapInstallPostSteps\SapOracleData.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SapInstallPostSteps\SapHanaData.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SapInstallPostSteps\SummarySAPInstallPostOracle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SapInstallPostSteps\SummarySAPInstallPostHANA.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\StartSapHadr\SAPUserData.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\StartSapHadr\SapErsServer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\StartSapHadr\SapAcscScsServer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\StartSapHadr\StandbyDBServer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

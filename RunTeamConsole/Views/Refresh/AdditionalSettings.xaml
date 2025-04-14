@@ -1,0 +1,218 @@
+﻿<UserControl x:Class="RunTeamConsole.Views.Refresh.AdditionalSettings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunTeamConsole.Views.Refresh" xmlns:components="clr-namespace:RunTeamConsole.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
+    </UserControl.Resources>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="101*"/>
+            <ColumnDefinition Width="99*"/>
+            <ColumnDefinition Width="200*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.ColumnSpan="3" Margin="0,0,0,256" Grid.RowSpan="2" Visibility="{Binding Credentials.ShowSAPClientListCredentials, Converter={StaticResource VisibleIfTrueConverter}}">
+            <Grid VerticalAlignment="Top" Margin="10,0,10,0">
+                <Label VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Bold">Target SAP System Additional Information</Label>
+                <Image Source="/img/icons/info-lines.png" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="register the user with which the pre and post activity transactions will be executed" Margin="250,7,7,7" MaxWidth="25"/>
+                <Label HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="#FFAAAAAA" Content="{Binding SelectedTargetSAPServer.Hostname}"></Label>
+            </Grid>
+            <Border BorderBrush="#FFD8D8D8" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1" Margin="10,0,10,2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <!--<StackPanel Visibility="{Binding ShowAddSettingsInfo, Converter={StaticResource VisibleIfTrueConverter}}">-->
+                        <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="13,2,2,2">
+                            <TextBlock Margin="3,5">SAP Type</TextBlock>
+                            <TextBlock Margin="3,5">SID</TextBlock>
+                            <TextBlock Margin="3,5">Instance</TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" HorizontalAlignment="Left">
+                            <TextBox Margin="0,6,0,0" Text="{Binding SelectedTargetSAPServer.ProductType, Mode=OneWay}" IsEnabled="False"/>
+                            <TextBox Margin="0,6,0,0" Text="{Binding SelectedTargetSAPServer.SID, Mode=OneWay}" IsEnabled="False"/>
+                            <TextBox Margin="0,8,0,0" Text="{Binding SelectedTargetSAPServer.Instance, Mode=OneWay}" IsEnabled="False"/>
+                        </StackPanel>
+                    </Grid>
+                    <!--</StackPanel>-->
+                    <StackPanel Margin="1,0,0,10" Grid.Column="1" Visibility="{Binding ShowAddSettingsInfo, Converter={StaticResource VisibleIfTrueConverter}}">
+
+                        <Label VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="Bold">Clients</Label>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="3,5" MinWidth="30" Text="Num"></TextBlock>
+                            <TextBlock Margin="3,5" MinWidth="30" Text="Select"></TextBlock>
+                            <TextBlock Margin="3,5" MinWidth="50" Text="ClientNum"></TextBlock>
+                            <TextBlock Margin="13,5" Text="User"></TextBlock>
+                            <TextBlock Margin="63,5" Text="Password"></TextBlock>
+                            <TextBlock Margin="3,5" Text="Description"></TextBlock>
+                        </StackPanel>
+                        <ItemsControl ItemsSource="{Binding Credentials.ClientsList}" Margin="0,0,0,0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock MinWidth="30" Margin="3,5" Text="{Binding SetNum, StringFormat=0{0}}"></TextBlock>
+                                        <CheckBox MinWidth="30" Margin="10,7,0,0" IsChecked="{Binding IsSelected, Mode=TwoWay}" IsEnabled="{Binding IsEnabled}"></CheckBox>
+                                        <TextBox MinWidth="40" Margin="3,8,0,0" Padding="5,0" Text="{Binding ClientNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="NumberValidationTextBox" MaxLength="3" IsEnabled="{Binding IsSelected, Mode=TwoWay}"/>
+                                        <TextBox MinWidth="100" Margin="8,8,0,0" Text="{Binding User, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsSelected, Mode=TwoWay}"/>
+                                        <Grid Margin="10,8,0,0">
+                                            <TextBox Visibility="Collapsed" IsEnabled="{Binding IsSelected, Mode=TwoWay}" MinWidth="110" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <components:BindablePasswordBox IsEnabled="{Binding IsSelected, Mode=TwoWay}" MinWidth="110" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Button PreviewMouseDown="Button_MouseDown" PreviewMouseUp="Button_MouseUp" HorizontalAlignment="Right" Background="White" BorderBrush="{x:Null}">
+                                                <Image Source="/img/icons/theye.png" HorizontalAlignment="Stretch" Width="15"/>
+                                            </Button>
+                                        </Grid>
+                                        <TextBox MinWidth="330" Margin="8,8,0,0" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsSelected, Mode=TwoWay}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                    <StackPanel Margin="1,0,0,10" Grid.Column="1" Visibility="{Binding ShowTransactionSetPostAct, Converter={StaticResource VisibleIfTrueConverter}}">
+
+                        <Label VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="Bold">Clients</Label>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="3,5" MinWidth="30" Text="Num"></TextBlock>
+                            <TextBlock Margin="3,5" MinWidth="30" Text="Select"></TextBlock>
+                            <TextBlock Margin="3,5" MinWidth="50" Text="ClientNum"></TextBlock>
+                            <TextBlock Margin="13,5" Text="User"></TextBlock>
+                            <TextBlock Margin="63,5" Text="Password"></TextBlock>
+                            <TextBlock Margin="3,5" Text="Description"></TextBlock>
+                        </StackPanel>
+                        <ItemsControl ItemsSource="{Binding Credentials.ClientsList}" Margin="0,0,0,0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock MinWidth="30" Margin="3,5" Text="{Binding SetNum, StringFormat=0{0}}"></TextBlock>
+                                        <CheckBox MinWidth="30" Margin="10,7,0,0" IsChecked="{Binding IsSelected, Mode=TwoWay}" IsEnabled="{Binding IsEnabled}"></CheckBox>
+                                        <TextBox MinWidth="40" Margin="3,8,0,0" Padding="5,0" Text="{Binding ClientNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="NumberValidationTextBox" MaxLength="3" IsEnabled="{Binding IsSelected, Mode=TwoWay}"/>
+                                        <TextBox MinWidth="100" Margin="8,8,0,0" Text="{Binding User, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsSelected, Mode=TwoWay}"/>
+                                        <Grid Margin="10,8,0,0">
+                                            <TextBox Visibility="Collapsed" IsEnabled="{Binding IsSelected, Mode=TwoWay}" MinWidth="110" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <components:BindablePasswordBox IsEnabled="{Binding IsSelected, Mode=TwoWay}" MinWidth="110" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Button PreviewMouseDown="Button_MouseDown" PreviewMouseUp="Button_MouseUp" HorizontalAlignment="Right" Background="White" BorderBrush="{x:Null}">
+                                                <Image Source="/img/icons/theye.png" HorizontalAlignment="Stretch" Width="15"/>
+                                            </Button>
+                                        </Grid>
+                                        <TextBox MinWidth="330" Margin="8,8,0,0" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsSelected, Mode=TwoWay}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Margin="0,0,0,-1" Grid.ColumnSpan="2" Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}">
+            <Grid VerticalAlignment="Top" Margin="10,0,10,0">
+                <Label VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Bold">Source Database Additional Settings</Label>
+                <Label HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="#FFAAAAAA" Content="{Binding SelectedSourceDBServer.Hostname}"></Label>
+            </Grid>
+            <Border BorderBrush="#FFD8D8D8" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1" Margin="10,0,10,2" Grid.Column="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90*"/>
+                        <ColumnDefinition Width="124*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="100*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Margin="13,2,2,2">
+                        <TextBlock Margin="5,6">OS</TextBlock>
+                        <TextBlock Margin="5,6">SID</TextBlock>
+                        <TextBlock Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}" Margin="5,6">Backup Ending Date
+                            <Span Foreground="Red" FontWeight="Bold">*</Span>
+                        </TextBlock>
+                        <TextBlock Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}" Margin="5,6">Backup Ending Time
+                            <Span Foreground="Red" FontWeight="Bold">*</Span>
+                        </TextBlock>
+                        <TextBlock Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}" Margin="5,6">CV-Streams
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Left">
+                        <TextBox Margin="0,6,0,0" Text="{Binding SelectedSourceDBServer.OS, Mode=OneWay}" IsEnabled="False"/>
+                        <TextBox Margin="0,6,0,0" MinWidth="150" Text="{Binding SelectedSourceDBServer.SID, Mode=OneWay}" IsEnabled="False"></TextBox>
+                        <DatePicker SelectedDate="{Binding SourceBackupDate, Mode=TwoWay}"  Margin="0,8,0,0" Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}"></DatePicker>
+                        <StackPanel Orientation="Horizontal" Margin="0,6,0,7"  Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}">
+                            <ComboBox x:Name="SourceBackupTimeHourCombobox" SelectedValue="{Binding SourceBackupHourTime}"></ComboBox>
+                            <TextBlock Text=":" Margin="5,3,5,0" ></TextBlock>
+                            <ComboBox x:Name="SourceBackupTimeMinuteCombobox" SelectedValue="{Binding SourceBackupMinuteTime}"></ComboBox>
+                            <TextBlock Text="hrs" Margin="5,3,5,0" ></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,6,0,7"  Visibility="{Binding RestoreDBIsAutomatic, Converter={StaticResource VisibleIfTrueConverter}}">
+                            <ComboBox x:Name="SourceBackupCVCombobox" SelectedValue="{Binding SourceBackupCV}"></ComboBox>
+
+                        </StackPanel>
+                    </StackPanel>
+                    <TextBlock Margin="18,6" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding BackupWarningMessage}" Visibility="{Binding ShowBackupWarningMessage, Converter={StaticResource VisibleIfTrueConverter}}"></TextBlock>
+                </Grid>
+
+            </Border>
+
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="2" Visibility="{Binding Credentials.ShowDBCredentials, Converter={StaticResource VisibleIfTrueConverter}}">
+            <Grid VerticalAlignment="Top" Margin="10,0,10,0">
+                <Label VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Bold">Target SAP Database Credentials</Label>
+                <Label HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="#FFAAAAAA" Content="{Binding SelectedTargetDBServer.Hostname}"></Label>
+            </Grid>
+            <Border BorderBrush="#FFD8D8D8" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1" Margin="10,0,10,2" Grid.Column="1" DataContext="{Binding Credentials}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90*"/>
+                        <ColumnDefinition Width="124*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="13,2,2,2">
+                        <Label FontWeight="Bold">Oracle</Label>
+                        <TextBlock Margin="5">SAP SCHEMA Database User
+                            <Span Foreground="Red" FontWeight="Bold">*</Span>
+                        </TextBlock>
+                        <TextBlock Margin="5">Password
+                            <Span Foreground="Red" FontWeight="Bold">*</Span>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Left">
+                        <TextBox Margin="0,33,0,0" MinWidth="150" Text="{Binding DBUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Grid>
+                            <TextBox Visibility="Collapsed" Margin="0,6,0,0" IsEnabled="True" MinWidth="150" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Text="{Binding DBPass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <components:BindablePasswordBox Margin="0,6,0,0" IsEnabled="True" MinWidth="150" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Password="{Binding DBPass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button PreviewMouseDown="Button_MouseDown" PreviewMouseUp="Button_MouseUp" HorizontalAlignment="Right" Background="White" BorderBrush="{x:Null}">
+                                <Image Source="/img/icons/theye.png" HorizontalAlignment="Stretch" Width="15"/>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Border BorderBrush="#FFD8D8D8" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1" Margin="10,0,10,2" Grid.Column="1" DataContext="{Binding Credentials}" Visibility="Collapsed">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90*"/>
+                        <ColumnDefinition Width="124*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="13,2,2,2">
+                        <Label FontWeight="Bold">DB2/HANA/SYBASE</Label>
+                        <Label>DB User</Label>
+                        <Label>Password</Label>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Left">
+                        <TextBox Margin="0,33,0,0" MinWidth="150" Text="{Binding DBUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <components:BindablePasswordBox Margin="0,8,0,0" Password="{Binding DBPass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </Grid>
+</UserControl>

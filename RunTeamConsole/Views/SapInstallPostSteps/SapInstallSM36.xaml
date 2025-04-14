@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="RunTeamConsole.Views.SapInstallPostSteps.SapInstallSM36"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunTeamConsole.Views.SapInstallPostSteps" xmlns:components="clr-namespace:RunTeamConsole.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border BorderBrush="#FFD8D8D8" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1" Margin="5,5,5,5">
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel>
+                <Grid VerticalAlignment="Top" Margin="10,0,10,0">
+                    <Label VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Bold">SM36 Parameters</Label>
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="50*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="20,0,0,0" Text="SAPUSER"/>
+                    <TextBox Grid.Column="1" Grid.Row="0" MaxWidth="150" Margin="2,0,2,0" HorizontalAlignment="Left" Width="90" Text="{Binding Sm36SapUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsSelected, Mode=TwoWay}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="20,0,0,0" Text="SAPPASS"/>
+                    <StackPanel Grid.Column="1" Grid.Row="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox Grid.Column="0" Visibility="Collapsed" Margin="2,0,2,0" HorizontalAlignment="Left" IsEnabled="True" Width="90" Text="{Binding Sm36SapPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <components:BindablePasswordBox Grid.Column="0" Margin="2,0,2,0" HorizontalAlignment="Left" MaxWidth="150" Width="90" IsEnabled="True" Password="{Binding Sm36SapPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button Grid.Column="1" Margin="0,0,2,0" Width="19" PreviewMouseDown="Button_MouseDown" HorizontalAlignment="Left" PreviewMouseUp="Button_MouseUp" Background="White" BorderBrush="{x:Null}">
+                                <Image Source="/img/icons/theye.png" HorizontalAlignment="Stretch" Width="15"/>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                    
+                    
+                    
+                    
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

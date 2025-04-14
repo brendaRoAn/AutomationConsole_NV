@@ -1,0 +1,237 @@
+﻿<UserControl x:Class="RunTeamConsole.Views.SapInstallPostSteps.SapInstallDB13"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunTeamConsole.Views.SapInstallPostSteps"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
+    </UserControl.Resources>
+    <Border BorderBrush="#FFD8D8D8" BorderThickness="1,1,1,1" CornerRadius="1,1,1,1" Margin="5,5,5,5">
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="70*"/>
+                <RowDefinition Height="70*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="100*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Bold">Job(s) to schedule</Label>
+
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid Margin="10,10,10,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Job Selection -->
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Margin="2,0,0,0" Text="Select Job"/>
+                            <ComboBox x:Name="Db13JobCombobox" Grid.Column="1" Grid.ColumnSpan="2" Margin="2,0,2,0" SelectedValue="{Binding Db13Job}"/>
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Start DateTime Date Selection-->
+                    <TextBlock Grid.Row="1" Margin="0,5,0,5" VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Bold">Start Datetime</TextBlock>
+                    <StackPanel Grid.Row="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Margin="2,0,0,0" Text="Start Date"/>
+                            <DatePicker Grid.Column="1" Margin="2,0,2,0" SelectedDate="{Binding Db13StartDate, Mode=TwoWay}"/>
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Start DateTime Time Selection-->
+                    <StackPanel Grid.Row="3">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Margin="2,0,0,0" Text="Start Time"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="2,0,2,0">
+                                <ComboBox x:Name="Db13StartDateHourCombobox" SelectedValue="{Binding Db13StartDateHour}"></ComboBox>
+                                <TextBlock Text=":" Margin="5,3,5,0" ></TextBlock>
+                                <ComboBox x:Name="Db13StartDateMinuteCombobox" SelectedValue="{Binding Db13StartDateMinute}"></ComboBox>
+                                <TextBlock Text="hrs" Margin="5,3,5,0" ></TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Start Recurrence Every Selection-->
+                    <TextBlock Grid.Row="4" Margin="0,5,0,5" VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Bold">Recurrence</TextBlock>
+                    <StackPanel Grid.Row="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Margin="2,0,0,0" Text="Every"/>
+                            <ComboBox Grid.Column="1" Margin="2,0,2,0" x:Name="Db13RecurrenceCombobox" SelectedValue="{Binding Db13Recurrence}" DropDownClosed="Db13RecurrenceCombobox_DropDownClosed"/><!-- PreviewMouseUp="Db13RecurrenceCombobox_PreviewMouseUp"/>-->
+                            
+                            <StackPanel x:Name="Db13RecurrenceAtDayStackPanel" Grid.Column="2" Grid.ColumnSpan="3" Visibility="Collapsed">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="5*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" Margin="0,0,10,0" Text="at" HorizontalAlignment="Right"/>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="2,0,2,0">
+                                        <ComboBox x:Name="Db13RecurrenceDayHourCombobox" SelectedValue="{Binding Rz04InTimeHour}"></ComboBox>
+                                        <TextBlock Text=":" Margin="5,3,5,0" ></TextBlock>
+                                        <ComboBox x:Name="Db13RecurrenceDayMinuteCombobox" SelectedValue="{Binding Rz04InTimeMinute}"></ComboBox>
+                                        <TextBlock Text="hrs" Margin="5,3,5,0" ></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+
+                            <StackPanel x:Name="Db13RecurrenceAtWeekStackPanel" Grid.Column="2" Grid.ColumnSpan="3" Visibility="Collapsed">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" Margin="0,0,10,0" Text="at" HorizontalAlignment="Right"/>
+
+                                    <ComboBox Grid.Column="1" Margin="2,0,2,0" x:Name="Db13RecurrenceAtDayCombobox" SelectedValue="{Binding Db13RecurrenceAtDay}"/>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                    
+                    <!-- Start Range Selection-->
+                    <StackPanel Grid.Row="6">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Margin="2,0,0,0" Text="Range"/>
+                            <ComboBox Grid.Column="1" Margin="2,0,2,0" x:Name="Db13RangeCombobox" SelectedValue="{Binding Db13Range}" DropDownClosed="Db13RangeCombobox_DropDownClosed"/>
+
+                            <StackPanel x:Name="Db13RangeEndAfterStackPanel" Grid.Column="3" Grid.ColumnSpan="2" Visibility="Collapsed">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="6*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <ComboBox Grid.Column="0" Visibility="Hidden"/>
+                                    <TextBox Grid.Column="0" Text="{Binding Db13RangeEndAfter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsSelected, Mode=TwoWay}"/>
+                                    <TextBlock Grid.Column="1" Margin="7,0,0,0" VerticalAlignment="Center" Text="ocurrences"/>
+                                </Grid>
+                            </StackPanel>
+
+                            <StackPanel x:Name="Db13RecurrenceEndByStackPanel" Grid.Column="3" Grid.ColumnSpan="2" Visibility="Collapsed">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <DatePicker Grid.Column="0" SelectedDate="{Binding Db13RangeEndByDate, Mode=TwoWay}"/>
+                                    <TextBlock Grid.Column="1" Margin="2,0,0,0" Text="at" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                        <ComboBox x:Name="Db13RangeEndByhourCombobox" SelectedValue="{Binding Db13RangeEndByhour}"></ComboBox>
+                                        <TextBlock Text=":" Margin="5,3,5,0" ></TextBlock>
+                                        <ComboBox x:Name="Db13RangeEndByMinuteCombobox" SelectedValue="{Binding Db13RangeEndByMinute}"></ComboBox>
+                                        <TextBlock Text="hrs" Margin="5,3,5,0" ></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="8">
+                        <Button Margin="0,0,2,0" Command="{Binding AddtoDb13ListCommand}" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="10,1,10,1">Add</Button>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="50*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150*"/>
+                        <ColumnDefinition Width="20*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ListView x:Name="Rz04List" Grid.Column="0" Background="AliceBlue" ItemsSource="{Binding Db13List}" SelectionMode="Multiple" ScrollViewer.CanContentScroll="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="DB13 Values">
+                                <GridViewColumn Width="30">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Mode=TwoWay, Path=IsSelected}" IsEnabled="{Binding IsEnabled}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Job" DisplayMemberBinding="{Binding Job}" />
+                                <GridViewColumn Header="Start Date" DisplayMemberBinding="{Binding StartDate}" />
+                                <GridViewColumn Header="Every" DisplayMemberBinding="{Binding Recurrence}" />
+                                <GridViewColumn Header="At" DisplayMemberBinding="{Binding RecurrenceDayTimeSpanString}" />
+                                <!--<GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" />
+                                <GridViewColumn Header="In Time" DisplayMemberBinding="{Binding InTime}"/>
+                                <GridViewColumn Header="End Time" DisplayMemberBinding="{Binding EndTime}"/>-->
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <Button Grid.Column="1" Grid.Row="0" Margin="2,2,0,0" Command="{Binding RemoveFromDb13ListCommand}" VerticalAlignment="Top" HorizontalAlignment="Stretch" Padding="10,1,10,1">Remove</Button>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

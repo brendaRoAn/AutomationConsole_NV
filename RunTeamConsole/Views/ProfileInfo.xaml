@@ -1,0 +1,57 @@
+﻿<Window x:Class="RunTeamConsole.Views.ProfileInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:RunTeamConsole.Views"
+        xmlns:s="clr-namespace:RunTeamConsole.Models"
+        mc:Ignorable="d" 
+        d:DesignHeight="280" d:DesignWidth="330" MaxWidth="350" MaxHeight="300"
+        WindowStartupLocation="CenterScreen">
+    <Grid Background="White">
+        <StackPanel>
+            <Image Source="/img/userinfobanner.png" />
+            <Border BorderThickness="0,0,0,1" BorderBrush="#FFE4E4E4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal">
+                    <Border BorderThickness="0,0,1,0" BorderBrush="#FFE4E4E4">
+                        <Label MinWidth="61">ITUSER:</Label>
+                    </Border>
+                    <Label Content="{Binding Source={x:Static s:UserProfile.ItUser} }"></Label>
+                </StackPanel>
+            </Border> 
+            <Border BorderThickness="0,0,0,1" BorderBrush="#FFE4E4E4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal">
+                    <Border BorderThickness="0,0,1,0" BorderBrush="#FFE4E4E4">
+                        <Label MinWidth="61">USER:</Label>
+                    </Border>
+                    <Label Content="{Binding Source={x:Static s:UserProfile.UserName} }"></Label>
+                </StackPanel>
+            </Border>
+            <Border BorderThickness="0,0,0,1" BorderBrush="#FFE4E4E4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal">
+                    <Border BorderThickness="0,0,1,0" BorderBrush="#FFE4E4E4">
+                        <Label MinWidth="61">HOST:</Label>
+                    </Border>
+                    <Label Content="{Binding Source={x:Static s:UserProfile.Host} }"></Label>
+                </StackPanel>
+            </Border>
+            <Border BorderThickness="0,0,0,1" BorderBrush="#FFE4E4E4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal">
+                    <Border BorderThickness="0,0,1,0" BorderBrush="#FFE4E4E4">
+                        <Label MinWidth="61">EMAIL:</Label>
+                    </Border>
+                    <Label Content="{Binding Source={x:Static s:UserProfile.Email} }"></Label>
+                </StackPanel>
+            </Border>
+            <Border BorderThickness="0,0,0,1" BorderBrush="#FFE4E4E4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal">
+                    <Border BorderThickness="0,0,1,0" BorderBrush="#FFE4E4E4">
+                        <Label MinWidth="61">DOMAIN:</Label>
+                    </Border>
+                    <Label Content="{Binding Source={x:Static s:UserProfile.Domain} }"></Label>
+                </StackPanel>
+            </Border>
+            <TextBlock FontStyle="Italic" FontSize="10" TextWrapping="Wrap" Margin="5,5,4,0">This information is taken from AD. If any of this contains an error please contact Innovation Team.</TextBlock>
+        </StackPanel> 
+    </Grid>
+</Window>

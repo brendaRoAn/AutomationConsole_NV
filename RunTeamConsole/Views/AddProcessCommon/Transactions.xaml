@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="RunTeamConsole.Views.Transactions"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunTeamConsole.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="White" Margin="10,0,28,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="6*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="19*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="182*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.ColumnSpan="3" BorderBrush="#FFC7C7C7" BorderThickness="0,0,0,1">
+            <Label Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="72" FontWeight="Bold">SAP Transactions</Label>
+        </Border>
+        <Border Grid.Row="1" BorderBrush="#FFC9C9C9" BorderThickness="0,0,0,1">
+            <ComboBox Margin="5,5,5,5" ItemsSource="{Binding AvailableTransactionsPackages, Mode=TwoWay}" SelectedItem="{Binding SelectedTransactionsPackage}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Subgroup}"></TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Border>
+        <ListView Background="AliceBlue" ItemsSource="{Binding SelectedTransactionsPackage.Transactions}" SelectionMode="Multiple" FontSize="14" Grid.Row="2" Margin="5,0,5,0" Height="280">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="System Information">
+                    <GridViewColumn Width="30">
+                        <GridViewColumn.Header>
+                            <CheckBox IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}}, Path=DataContext.SelectAllTransactionsCheckboxIsChecked}" 
+                                      Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}}, Path=DataContext.SelectAllTransactionsCommand}" 
+                                      CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Mode=TwoWay, Path=IsSelected}" IsEnabled="{Binding IsEnabled}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="SAP Transaction" DisplayMemberBinding="{Binding TCode}"/>
+                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView Background="AliceBlue" ItemsSource="{Binding SelectedTransactionsList}" SelectionMode="Multiple" FontSize="14" Grid.Row="2" Grid.Column="2" Margin="5,0,5,0" Height="280">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelectedOnSelectedList}"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="System Information">
+                    <GridViewColumn Width="30">
+                        <GridViewColumn.Header>
+                            <CheckBox IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}}, Path=DataContext.SelectAllTransactionsOnSelectedListCheckboxIsChecked}" 
+                                      Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}}, Path=DataContext.SelectAllTransactionsOnSelectedListCommand}" 
+                                      CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Mode=TwoWay, Path=IsSelectedOnSelectedList}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="SAP Transaction" DisplayMemberBinding="{Binding TCode}"/>
+                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Center">
+            <Button BorderBrush="{x:Null}" Background="{x:Null}" Width="Auto" Command="{Binding MoveToSelectedTransactions}">
+                <Image Source="/img/icons/arrow-r.png" ToolTip="Select Server" Margin="10,0,10,0"/>
+            </Button>
+            <Button BorderBrush="{x:Null}" Background="{x:Null}" Width="Auto" Command="{Binding RemoveFromSelectedTransactions}" Margin="5,15,5,0">
+                <Image Source="/img/icons/arrow-l.png" ToolTip="Select Server" Margin="5,0,5,0"/>
+            </Button>
+        </StackPanel>
+        <Label Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontFamily="72" FontSize="14">Selected Transactions:</Label>
+    </Grid>
+</UserControl>

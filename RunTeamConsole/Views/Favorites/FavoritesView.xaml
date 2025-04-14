@@ -1,0 +1,154 @@
+﻿<UserControl x:Class="RunTeamConsole.Views.FavoritesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunTeamConsole.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="25*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.ColumnSpan="3" HorizontalAlignment="Stretch">
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FFF3F3F3" FontSize="16" FontFamily="72">
+                <Label.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding CurrentUser}"></TextBlock>
+                        <TextBlock Text=" Saved Processes"></TextBlock>
+                    </StackPanel>
+                </Label.Content>
+            </Label>
+        </Border>
+
+        <ContentControl x:Name="contentControl" Grid.Row="1" Grid.ColumnSpan="2" Margin="20,0,20,0" Content="{Binding CurrentControl}" BorderBrush="#FF575757" Background="White"/>
+
+        <Border BorderBrush="#FFF1F1F1" BorderThickness="0,0,0,1" Grid.Column="2" Grid.Row="1">
+            <StackPanel>
+                <Button BorderBrush="{x:Null}" Background="White" MaxWidth="28" Margin="0,5,0,4" Command="{Binding ChangeAddProcessViewCommand}">
+                    <Image Source="/img/icons/add3.png" Height="Auto" Margin="0,3,3,3">
+                        <Image.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" FontSize="14" Margin="0,0,0,5">Add Process</TextBlock>
+                                <Border BorderBrush="Silver" BorderThickness="0,1,0,0" Margin="0,8" />
+                                <TextBlock>
+                                        Add a new process
+                                </TextBlock>
+                            </StackPanel>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button BorderBrush="{x:Null}" Background="White" MaxWidth="30" Margin="0,4,0,0" Command="{Binding PreScheduleFavoriteProfileCommand}"
+                    Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Image Source="/img/icons/clock.png" Height="Auto" Margin="0,3,2,3">
+                        <Image.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" FontSize="14" Margin="0,0,0,5">Schedule</TextBlock>
+                                <Border BorderBrush="Silver" BorderThickness="0,1,0,0" Margin="0,8" />
+                                <TextBlock>
+                                        Schedule this process
+                                </TextBlock>
+                            </StackPanel>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button BorderBrush="{x:Null}" Background="White" MaxWidth="30" Margin="0,7,0,0" Command="{Binding EditFavoriteProfileCommand}"
+                    Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Image Source="/img/icons/edit.png" Height="Auto" Margin="0,3,0,3">
+                        <Image.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" FontSize="14" Margin="0,0,0,5">Edit</TextBlock>
+                                <Border BorderBrush="Silver" BorderThickness="0,1,0,0" Margin="0,8" />
+                                <TextBlock>
+                                        Make changes on your previously saved process
+                                </TextBlock>
+                            </StackPanel>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button BorderBrush="{x:Null}" Background="White" MaxWidth="30" Margin="0,9,0,0" Command="{Binding DeleteFavoriteProfileCommand}"
+                    Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Image Source="/img/icons/trashbin-gray.png" Height="Auto" Margin="0,3,4,3">
+                        <Image.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" FontSize="14" Margin="0,0,0,5">Delete</TextBlock>
+                                <Border BorderBrush="Silver" BorderThickness="0,1,0,0" Margin="0,8" />
+                                <TextBlock>
+                                        Delete your process. This cannot be undone.
+                                </TextBlock>
+                            </StackPanel>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+                <Button BorderBrush="{x:Null}" Background="White" MaxWidth="40" Command="{Binding ScheduleFavoriteProfileCommand}"
+                    Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Image Source="/img/icons/play-clean.png" Height="Auto" Margin="2,7,5,10">
+                        <Image.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" FontSize="14" Margin="0,0,0,5">Finish</TextBlock>
+                                <Border BorderBrush="Silver" BorderThickness="0,1,0,0" Margin="0,8" />
+                                <TextBlock>
+                                        Schedule your process with the pertinent corrections.
+                                </TextBlock>
+                            </StackPanel>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+
+                <Button BorderBrush="{x:Null}" Background="White" MaxWidth="40" Command="{Binding ShowShareFavoriteWindowCommand}"
+                    Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,3,0,0">
+                    <Image Source="/img/icons/share.png" Height="Auto" Margin="5,7,2,10">
+                        <Image.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" FontSize="14" Margin="0,0,0,5">Share</TextBlock>
+                                <Border BorderBrush="Silver" BorderThickness="0,1,0,0" Margin="0,8" />
+                                <TextBlock>
+                                        Share your pre-configured process with another user
+                                </TextBlock>
+                            </StackPanel>
+                        </Image.ToolTip>
+                    </Image>
+                </Button>
+            </StackPanel>
+        </Border>
+        
+        <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <Button BorderBrush="{x:Null}" Background="White" MaxWidth="40" Margin="0,9,0,0" HorizontalAlignment="Right" Command="{Binding BackToListViewCommand}"
+                    Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Image Source="/img/icons/back-clean.png" Height="Auto" Margin="2,3,5,10">
+                    <Image.ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" FontSize="14" Margin="0,0,0,5">Back</TextBlock>
+                            <Border BorderBrush="Silver" BorderThickness="0,1,0,0" Margin="0,8" />
+                            <TextBlock>
+                                    Back to your favorite process List
+                            </TextBlock>
+                        </StackPanel>
+                    </Image.ToolTip>
+                </Image>
+            </Button>
+            <Button BorderBrush="{x:Null}" Background="White" MaxWidth="40" Margin="0,9,0,0" HorizontalAlignment="Right" Command="{Binding ChangePrincipalViewCommand}">
+                <Image Source="/img/icons/home.png" Height="Auto" Margin="0,3,4,10">
+                    <Image.ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" FontSize="14" Margin="0,0,0,5">Home</TextBlock>
+                            <Border BorderBrush="Silver" BorderThickness="0,1,0,0" Margin="0,8" />
+                            <TextBlock>
+                                        Go back to main view
+                            </TextBlock>
+                        </StackPanel>
+                    </Image.ToolTip>
+                </Image>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

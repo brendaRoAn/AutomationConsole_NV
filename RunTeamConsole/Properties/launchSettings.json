@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "RunTeamConsole": {
+      "commandName": "Project",
+      "commandLineArgs": "VDC-ROBEB",
+      "nativeDebugging": true
+    }
+  }
+}

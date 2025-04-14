@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="RunTeamConsole.Views.Refresh.TransactionsPreactivities"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunTeamConsole.Views.Refresh"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="White" Margin="10,0,28,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="6*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="19*"/>
+            <RowDefinition Height="13*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="182*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.ColumnSpan="2" BorderBrush="#FFC7C7C7" BorderThickness="0,0,0,1">
+            <Label Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="72" FontWeight="Bold" Content="SAP Transactions | Pre-Activities"/>
+        </Border>
+        <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="#FFC7C7C7" BorderThickness="0,0,0,1">
+            <TextBox Padding="10,0,5,0" FontStyle="Italic" HorizontalAlignment="Center" VerticalAlignment="Top" TextWrapping="Wrap" Text="Check the information of all transactions that will be analyzed on System Copy Pre-activities."/>
+        </Border>
+        <Border Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderBrush="#FFC9C9C9" BorderThickness="0,0,0,1">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,3,5,0">Transaction Set</TextBlock>
+                    <TextBlock Margin="10,3,5,0">Client-User</TextBlock>
+                    <TextBlock Margin="40,3,5,0">Internal Sap Flow Step</TextBlock>
+                </StackPanel>
+                <ItemsControl ItemsSource="{Binding AvailablePreactTransactionsPackages}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox MinWidth="30" Margin="0,4,0,0" IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                      Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.SelectPreactTransactionsSet}" 
+                                      CommandParameter="{Binding }"></CheckBox>
+                                <TextBlock Margin="0,3,5,0" Text="{Binding Subgroup}"></TextBlock>
+                                <ComboBox Margin="15,2,0,0" VerticalAlignment="Top" MaxHeight="25" ItemsSource="{Binding AvailableClientUsers}" MinWidth="90" SelectedItem="{Binding SelectedClientUserPreact}">
+                                </ComboBox>
+                                <TextBlock Margin="15,3,5,0" Text="{Binding PreStepsString}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Border>
+        <ListView Background="AliceBlue" ItemsSource="{Binding SelectedTransactionsPreActList}" SelectionMode="Multiple" FontSize="14" Grid.Row="3" Grid.Column="1" Margin="5,0,5,0">
+            <ListView.View>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="System Information">
+                    <GridViewColumn Header="Client" DisplayMemberBinding="{Binding ClientSet.ClientNum}"/>
+                    <GridViewColumn Header="User" DisplayMemberBinding="{Binding ClientSet.User}" Width="50"/>
+                    <GridViewColumn Header="SAP Transaction" DisplayMemberBinding="{Binding TCode}"/>
+                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"/>
+                    <GridViewColumn Header="Internal Flow Step" DisplayMemberBinding="{Binding Step}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontFamily="72" FontSize="14">Selected Transactions:</Label>
+    </Grid>
+</UserControl>

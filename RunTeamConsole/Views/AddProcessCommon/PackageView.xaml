@@ -1,0 +1,169 @@
+﻿<UserControl x:Class="RunTeamConsole.Views.PackageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunTeamConsole.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="250" d:DesignWidth="460">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
+    </UserControl.Resources>
+    <Grid Background="White" Margin="0, 0, 20,20">
+        <StackPanel Orientation="Horizontal">
+            <GroupBox Margin="10,10,10,10" Padding="5,10,5,5" Visibility="{Binding DisplayAvailableOraclePackagesForLinux, Converter={StaticResource VisibleIfTrueConverter}}">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="3,0" />
+                        <TextBlock FontWeight="Normal">Package settings for Linux systems</TextBlock>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="DB Version"/><Run Language="es-mx" Text=":"/></TextBlock>
+                        <ComboBox Margin="31,0,0,0" MinWidth="100" ItemsSource="{Binding AvailableOracleDBVersionsForLinux}" SelectedItem="{Binding SelectedOracleDBVersionForLinux}" VerticalAlignment="Center" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Bundle Packages"/><Run Language="es-mx" Text=":"/></TextBlock>
+                        <ComboBox MinWidth="200" HorizontalAlignment="Center" ItemsSource="{Binding AvailableOraclePackagesForLinux}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedOraclePackageForLinux}" VerticalAlignment="Center">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ComboBoxItem}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Active}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                        </ComboBox>
+                    </StackPanel>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Package Description" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="{Binding SelectedOraclePackageForLinux.Name}" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                    </StackPanel>
+                    <ListView DataContext="{Binding SelectedOraclePackageForLinux}" ItemsSource="{Binding PackageFiles}">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                                <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Margin="10,10,10,10" Grid.Column="1" Padding="5,10,5,5" Visibility="{Binding DisplayAvailableOraclePackagesForAIX, Converter={StaticResource VisibleIfTrueConverter}}">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="3,0" />
+                        <TextBlock FontWeight="Normal">Package settings for AIX systems</TextBlock>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="DB Version"/><Run Language="es-mx" Text=":"/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding AvailableOracleDBVersionsForAIX}" SelectedItem="{Binding SelectedOracleDBVersionForAIX}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Bundle Packages"/><Run Language="es-mx" Text=":"/></TextBlock>
+                        <ComboBox MinWidth="200" HorizontalAlignment="Center" ItemsSource="{Binding AvailableOraclePackagesForAIX}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedOraclePackageForAIX}" VerticalAlignment="Center">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ComboBoxItem}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Active}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                        </ComboBox>
+                    </StackPanel>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Package Description" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="{Binding SelectedOraclePackageForAIX.Name}" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                    </StackPanel>
+                    <ListView DataContext="{Binding SelectedOraclePackageForAIX}" ItemsSource="{Binding PackageFiles}">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                                <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Margin="10,10,10,10" Padding="5,10,5,5" Visibility="{Binding DisplayAvailableSAPHostAgentPackagesForLinux, Converter={StaticResource VisibleIfTrueConverter}}">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="3,0" />
+                        <TextBlock FontWeight="Normal">Package settings for Linux systems</TextBlock>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="SAP Host Agent Version"/><Run Language="es-mx" Text=":"/></TextBlock>
+                        <ComboBox MinWidth="100" ItemsSource="{Binding AvailableSAPHostAgentVersionsForLinux}" SelectedItem="{Binding SelectedSAPHostAgentVersionForLinux}" VerticalAlignment="Center" Width="100"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="SAP Host Agent Patch Number"/><Run Language="es-mx" Text=":"/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding AvailableSAPHostAgentPackagesForLinux}" DisplayMemberPath="Patch" SelectedItem="{Binding SelectedSAPHostAgentPackageForLinux}" VerticalAlignment="Center">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ComboBoxItem}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Active}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.ItemContainerStyle></ComboBox>
+                    </StackPanel>
+                    <ListView ItemsSource="{Binding SelectedSAPHostAgentPackagesForLinux}">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                                <GridViewColumn Width="220" Header="File Name" DisplayMemberBinding="{Binding FileName}"/>
+                                <GridViewColumn Width="50" Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Margin="10,10,10,10" Grid.Column="1" Padding="5,10,5,5" Visibility="{Binding DisplayAvailableSAPHostAgentPackagesForAIX, Converter={StaticResource VisibleIfTrueConverter}}">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="3,0" />
+                        <TextBlock FontWeight="Normal">Package settings for AIX systems</TextBlock>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="SAP Host Agent Version"/><Run Language="es-mx" Text=":"/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding AvailableSAPHostAgentVersionsForAIX}" SelectedItem="{Binding SelectedSAPHostAgentVersionForAIX}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="SAP Host Agent Patch Number"/><Run Language="es-mx" Text=":"/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding AvailableSAPHostAgentPackagesForAIX}" DisplayMemberPath="Patch" SelectedItem="{Binding SelectedSAPHostAgentPackageForAIX}" VerticalAlignment="Center">
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ComboBoxItem}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Active}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                        </ComboBox>
+                    </StackPanel>
+                    <ListView ItemsSource="{Binding SelectedSAPHostAgentPackagesForAIX}">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                                <GridViewColumn Width="220" Header="File Name" DisplayMemberBinding="{Binding FileName}"/>
+                                <GridViewColumn Width="50" Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

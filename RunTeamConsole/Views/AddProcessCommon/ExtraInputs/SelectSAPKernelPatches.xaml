@@ -1,0 +1,270 @@
+﻿<UserControl x:Class="RunTeamConsole.Views.AddProcessCommon.ExtraInputs.SelectSAPKernelPatches"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunTeamConsole.Views.AddProcessCommon.ExtraInputs"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
+    </UserControl.Resources>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+        <Grid Background="White" Margin="0, 0, 20,20">
+        <StackPanel Orientation="Horizontal">
+            <GroupBox Margin="10,10,10,10" Padding="5,10,5,5" Visibility="{Binding DisplayAvailableSAPKernelPackagesForOracle, Converter={StaticResource VisibleIfTrueConverter}}">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="3,0" />
+                        <TextBlock FontWeight="Normal">Package settings for Oracle DataBases</TextBlock>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Type:     "/></TextBlock>
+                        <ComboBox MinWidth="100" ItemsSource="{Binding SAPKernelUnicodeListForOracle}" SelectedItem="{Binding SelectedSAPKernelUnicodeForOracle}"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Version: "/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelVersionListForOracle}" SelectedItem="{Binding SelectedSAPKernelVersionForOracle}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Patch:    "/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelPatchListForOracle}" SelectedItem="{Binding SelectedSAPKernelPatchForOracle}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                    </StackPanel>
+                        <ListView DataContext="{Binding SelectedSAPKernelPackageForOracle}" ItemsSource="{Binding PackageFiles}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding OSMatch}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.View>
+                                <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                    <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}"/>
+                                    <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+            </GroupBox>
+            <GroupBox Margin="10,10,10,10" Padding="5,10,5,5" Visibility="{Binding DisplayAvailableSAPKernelPackagesForSybase, Converter={StaticResource VisibleIfTrueConverter}}">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="3,0" />
+                        <TextBlock FontWeight="Normal">Package settings for Sybase DataBases</TextBlock>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Type:     "/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelUnicodeListForSybase}" SelectedItem="{Binding SelectedSAPKernelUnicodeForSybase}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Version: "/></TextBlock>
+                            <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelVersionListForSybase}" SelectedItem="{Binding SelectedSAPKernelVersionForSybase}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Patch:    "/></TextBlock>
+                            <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelPatchListForSybase}" SelectedItem="{Binding SelectedSAPKernelPatchForSybase}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                    </StackPanel>
+                    <ListView DataContext="{Binding SelectedSAPKernelPackageForSybase}" ItemsSource="{Binding PackageFiles}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding OSMatch}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                                <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Margin="10,10,10,10" Padding="5,10,5,5" Visibility="{Binding DisplayAvailableSAPKernelPackagesForDB2, Converter={StaticResource VisibleIfTrueConverter}}">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="3,0" />
+                        <TextBlock FontWeight="Normal">Package settings for DB2 DataBases</TextBlock>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Type:     "/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelUnicodeListForDB2}" SelectedItem="{Binding SelectedSAPKernelUnicodeForDB2}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Version: "/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelVersionListForDB2}" SelectedItem="{Binding SelectedSAPKernelVersionForDB2}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Patch:    "/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelPatchListForDB2}" SelectedItem="{Binding SelectedSAPKernelPatchForDB2}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                    </StackPanel>
+                    <ListView DataContext="{Binding SelectedSAPKernelPackageForDB2}" ItemsSource="{Binding PackageFiles}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding OSMatch}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                                <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Margin="10,10,10,10" Padding="5,10,5,5" Visibility="{Binding DisplayAvailableSAPKernelPackagesForHana, Converter={StaticResource VisibleIfTrueConverter}}">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="3,0" />
+                        <TextBlock FontWeight="Normal">Package settings for HANA DataBases</TextBlock>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Type:     "/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelUnicodeListForHana}" SelectedItem="{Binding SelectedSAPKernelUnicodeForHana}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Version: "/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelVersionListForHana}" SelectedItem="{Binding SelectedSAPKernelVersionForHana}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Patch:    "/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelPatchListForHana}" SelectedItem="{Binding SelectedSAPKernelPatchForHana}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                    </StackPanel>
+                    <ListView DataContext="{Binding SelectedSAPKernelPackageForHana}" ItemsSource="{Binding PackageFiles}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding OSMatch}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                                <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Margin="10,10,10,10" Padding="5,10,5,5" Visibility="{Binding DisplayAvailableSAPKernelPackagesForSAPDB, Converter={StaticResource VisibleIfTrueConverter}}">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="3,0" />
+                        <TextBlock FontWeight="Normal">Package settings for SAPDB DataBases</TextBlock>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Type:     "/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelUnicodeListForSAPDB}" SelectedItem="{Binding SelectedSAPKernelUnicodeForSAPDB}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Version: "/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelVersionListForSAPDB}" SelectedItem="{Binding SelectedSAPKernelVersionForSAPDB}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Patch:    "/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelPatchListForSAPDB}" SelectedItem="{Binding SelectedSAPKernelPatchForSAPDB}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                    </StackPanel>
+                    <ListView DataContext="{Binding SelectedSAPKernelPackageForSAPDB}" ItemsSource="{Binding PackageFiles}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding OSMatch}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                                <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Margin="10,10,10,10" Padding="5,10,5,5" Visibility="{Binding DisplayAvailableSAPKernelPackagesForWebD, Converter={StaticResource VisibleIfTrueConverter}}">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="3,0" />
+                        <TextBlock FontWeight="Normal">Package settings for WebD Systems</TextBlock>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Type:     "/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelUnicodeListForWebD}" SelectedItem="{Binding SelectedSAPKernelUnicodeForWebD}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Version: "/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelVersionListForWebD}" SelectedItem="{Binding SelectedSAPKernelVersionForWebD}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,10,0" VerticalAlignment="Stretch" Grid.Row="2" Orientation="Horizontal">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,10,0"><Run Text="Patch:    "/></TextBlock>
+                        <ComboBox MinWidth="100" HorizontalAlignment="Center" ItemsSource="{Binding SAPKernelPatchListForWebD}" SelectedItem="{Binding SelectedSAPKernelPatchForWebD}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Text="Selected Package:" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"/>
+                    </StackPanel>
+                    <ListView DataContext="{Binding SelectedSAPKernelPackageForWebD}" ItemsSource="{Binding PackageFiles}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding OSMatch}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False" ColumnHeaderToolTip="Package Content">
+                                <GridViewColumn Header="File Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="OS" DisplayMemberBinding="{Binding OS}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+    </ScrollViewer >
+</UserControl>
